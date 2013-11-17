@@ -1,1 +1,8 @@
- 
+target/*
+getn/*
+*.classpath
+*.project
+*.settings
+target/
+bin/
+object/ 
