@@ -1,8 +1,13 @@
 package com.pioneers.vcrn.data;
 
-public class Account {
+import java.io.Serializable;
 
-	private long accountId;
+public class Account implements Serializable{
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 5859267768225822691L;
+    private long accountId;
 	private String username;
 	private String password;
 	private boolean isActive;
@@ -47,5 +52,11 @@ public class Account {
 	public void setRole(String role) {
 		this.role = role;
 	}
+
+    @Override
+    public String toString() {
+        return "Account [accountId=" + accountId + ", username=" + username + ", password=" + password + ", isActive="
+                + isActive + ", role=" + role + "]";
+    }
 
 }
