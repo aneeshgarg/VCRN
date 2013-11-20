@@ -11,8 +11,18 @@
 		<description></description>
 		<servlet-class>com.pioneers.vcrn.webviews.servlets.HomeServlet</servlet-class>
 	</servlet>
+	<servlet>
+		<servlet-name>RehabPlanServlet</servlet-name>
+		<display-name>RehabPlanServlet</display-name>
+		<description></description>
+		<servlet-class>com.pioneers.vcrn.webviews.servlets.RehabPlanServlet</servlet-class>
+	</servlet>
 	<servlet-mapping>
 		<servlet-name>Home</servlet-name>
 		<url-pattern>/home</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>RehabPlanServlet</servlet-name>
+		<url-pattern>/rehabplan</url-pattern>
 	</servlet-mapping>
 </web-app>
