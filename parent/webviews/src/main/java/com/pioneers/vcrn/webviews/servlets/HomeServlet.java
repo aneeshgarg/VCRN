@@ -25,16 +25,20 @@ public class HomeServlet extends HttpServlet {
         loginRequest.setPassword(request.getParameter("password"));
         Account account = null;
         try {
-            account = (Account) new RestHelper().callRestService("/facade/loginget", "GET", null, Account.class);
+            account = (Account) new RestHelper().callRestService("/facade/login", "POST", loginRequest, Account.class);
             if (account != null)
                 System.out.println(account.toString());
         } catch (Exception e) {
             System.out.println(e.getMessage());
             e.printStackTrace();
         }
-        request.setAttribute("account", account);
-
-        request.getRequestDispatcher("home.jsp").forward(request, response);
+        
+        if (account != null) {
+            request.setAttribute("account", account);
+            request.getRequestDispatcher("home.jsp").forward(request, response);
+        }
+        else 
+            request.getRequestDispatcher("index.jsp").forward(request, response);
     }
 
 }

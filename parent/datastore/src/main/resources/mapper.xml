@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper 
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pioneers.vcrn.datastore.datamap">
+    <select id="Login" parameterType="LoginRequest" resultMap="AccountMap">
+        select * from account a
+        <where>
+             a.username = #{username} and
+             a.password = #{password}            
+        </where>        	
+    </select>
+    
+    <resultMap type="Account" id="AccountMap">
+        <result property="accountId" column="acct_id"/>
+        <result property="username" column="username"/>
+        <result property="active" javaType="boolean" column="status"/>
+        <result property="role" column="role"/>
+    </resultMap>
+    
+	<!-- for secondary level caching -->
+	<cache eviction="LRU" flushInterval="60000" size="512" readOnly="true" />
+</mapper>

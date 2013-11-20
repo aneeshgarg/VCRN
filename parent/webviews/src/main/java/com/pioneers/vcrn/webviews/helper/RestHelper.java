@@ -21,7 +21,7 @@ import com.google.gson.JsonParseException;
 
 public class RestHelper {
 
-    public static String       BASE_ADDRESS = "http://localhost:8080/webservices/restful";
+    public static String       BASE_ADDRESS = "http://localhost:8080/webservices";
     public static String       SERVERURL;
 
     public static final String METHOD_GET   = "GET";
@@ -73,7 +73,7 @@ public class RestHelper {
         } catch (Exception e) {
 
             System.out.println("RESPONSE STATUS CODE = " + conn.getResponseCode());
-            System.out.println("exception=" + e.toString());
+            System.out.println("exception=" + e.toString());           
 
             throw new Exception(conn.getResponseCode() + "");
         } finally {
