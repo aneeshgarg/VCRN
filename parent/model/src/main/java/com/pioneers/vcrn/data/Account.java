@@ -1,17 +1,14 @@
 package com.pioneers.vcrn.data;
 
-import java.io.Serializable;
+import java.util.List;
 
-public class Account implements Serializable {
-    /**
-     * 
-     */
-    private static final long serialVersionUID = 5859267768225822691L;
-    private long              accountId;
-    private String            username;
-    private String            password;
-    private boolean           active;
-    private String            role;
+public class Account extends PersonInfo {
+    private static final long  serialVersionUID = 5859267768225822691L;
+    private long               accountId;
+    private String             username;
+    private boolean            active;
+    private String             role;
+    private List<Notification> notificationList;
 
     public long getAccountId() {
         return accountId;
@@ -27,14 +24,6 @@ public class Account implements Serializable {
 
     public void setUsername(String username) {
         this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public boolean isActive() {
@@ -53,10 +42,18 @@ public class Account implements Serializable {
         this.role = role;
     }
 
+    public List<Notification> getNotificationList() {
+        return notificationList;
+    }
+
+    public void setNotificationList(List<Notification> notificationList) {
+        this.notificationList = notificationList;
+    }
+
     @Override
     public String toString() {
-        return "Account [accountId=" + accountId + ", username=" + username + ", password=" + password + ", active=" + active + ", role=" + role
-                + "]";
+        return "Account [accountId=" + accountId + ", username=" + username + ", active=" + active + ", role=" + role + ", notificationList="
+                + notificationList + "]";
     }
 
 }

@@ -7,7 +7,7 @@ import com.pioneers.vcrn.request.LoginRequest;
 public class AccountService {
 
     public Account login(LoginRequest request) {
-        return new AccountDatastore().login(request);
+        return new AccountDatastore().getAccountInfo(request);
     }
     
 }

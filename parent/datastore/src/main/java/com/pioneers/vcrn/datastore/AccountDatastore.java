@@ -8,7 +8,7 @@ import com.pioneers.vcrn.request.LoginRequest;
 
 public class AccountDatastore {
 
-    public Account login(LoginRequest request) {
+    public Account getAccountInfo(LoginRequest request) {
         Account account = null;
         SqlSession session = null;
         
