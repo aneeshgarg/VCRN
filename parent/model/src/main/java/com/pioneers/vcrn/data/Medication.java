@@ -48,4 +48,12 @@ public class Medication extends BaseObject {
         this.type = type;
     }
 
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        builder.append("Medication [timeTotake=").append(timeTotake).append(", medicineName=").append(medicineName).append(", dosage=")
+                .append(dosage).append(", type=").append(type).append("]");
+        return builder.toString();
+    }
+
 }

@@ -18,6 +18,7 @@ import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParseException;
+import com.google.gson.JsonSyntaxException;
 
 public class RestHelper {
 
@@ -69,8 +70,13 @@ public class RestHelper {
             System.out.println("Time for getting response from service=" + (endTimeServiceCall - startTimeServiceCall));
 
             if (responseJson != null)
-                return new Gson().fromJson(new InputStreamReader(responseJson, "UTF-8"), responseClass);
-        } catch (Exception e) {
+                return getJsonParser().fromJson(new InputStreamReader(responseJson, "UTF-8"), responseClass);
+        } 
+        catch (JsonSyntaxException e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
+        catch (Exception e) {
 
             System.out.println("RESPONSE STATUS CODE = " + conn.getResponseCode());
             System.out.println("exception=" + e.toString());           

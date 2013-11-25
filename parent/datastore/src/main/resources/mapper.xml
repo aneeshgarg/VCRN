@@ -5,17 +5,84 @@
 <mapper namespace="com.pioneers.vcrn.datastore.datamap">
     <select id="Login" parameterType="LoginRequest" resultMap="AccountMap">
         select * from account a
+        left outer join personal_info p on a.acct_id = p.acct_id
         <where>
              a.username = #{username} and
              a.password = #{password}            
         </where>        	
     </select>
+    <select id="GetMedicalProfessionalAccount" parameterType="long" resultMap="MPAccountMap">
+        select * from account a
+        left outer join personal_info p on a.acct_id = p.acct_id
+        left outer join notification n on a.acct_id = n.doctor_id
+        where a.acct_id = #{param}
+    </select>
+    <select id="GetPatientListForMP" parameterType="long" resultMap="PatientMapForMP">
+        select * from account a
+        left outer join personal_info p on a.acct_id = p.acct_id
+        left outer join patient_health_data h on h.acct_id = a.acct_id
+        where a.doctor_id = #{param}
+    </select>
+    <select id="GetPatientAccount" parameterType="long" resultMap="PatientAccountMap">
+        select * from account a
+        left outer join personal_info p on a.acct_id = p.acct_id
+        left outer join notification n on a.acct_id = n.patient_id
+        left outer join patient_health_data h on h.acct_id = a.acct_id
+        where a.acct_id = #{param}        
+    </select>
+    <select id="GetMedicalProfessionalForPatient" resultMap="MPMapForPatient">
+        select * from account a
+        left outer join personal_info p on a.acct_id = p.acct_id
+        where a.acct_id = #{param}
+    </select>
     
-    <resultMap type="Account" id="AccountMap">
+    <resultMap type="PersonInfo" id="PersonInfoMap">
+        <result property="firstName" column="first_name"/>
+        <result property="lastName" column="last_name"/>
+        <result property="email" column="email"/>
+        <result property="gender" column="gender"/>
+        <result property="dob" column="dob"/>        
+    </resultMap>
+    
+    <resultMap type="Account" id="AccountMap" extends="PersonInfoMap">
         <result property="accountId" column="acct_id"/>
         <result property="username" column="username"/>
         <result property="active" javaType="boolean" column="status"/>
         <result property="role" column="role"/>
+        <collection property="notificationList" resultMap="NotificationMap"/>
+    </resultMap>
+    
+    <resultMap type="MedicalProfessional" id="MPAccountMap" extends="AccountMap">
+        <collection property="patientList" column="acct_id" select="GetPatientListForMP"/>
+    </resultMap>
+    
+    <resultMap type="Patient" id="PatientAccountMap" extends="AccountMap">
+        <association property="healthData" resultMap="HealthDataMap"/> 
+        <association property="doctor" column="doctor_id" select="GetMedicalProfessionalForPatient"/>       
+    </resultMap>
+    
+    <resultMap type="Patient" id="PatientMapForMP" extends="AccountMap">
+        <association property="healthData" resultMap="HealthDataMap"/>
+    </resultMap>
+    <resultMap type="MedicalProfessional" id="MPMapForPatient">
+    </resultMap>
+    
+    <resultMap type="HealthData" id="HealthDataMap">
+        <result property="fileId" column="file_id"/>
+        <result property="bloodPressure" column="blood_pressure"/>
+        <result property="pulse" column="pulse"/>
+        <result property="calorieIndex" column="calorie_index"/>
+        <result property="sodiumConsumption" column="sodium_consumption"/>
+        <result property="bmiIndex" column="bmi_index"/>
+        <result property="cholestrolIndex" column="cholestrol_index"/>
+        <result property="weight" column="weight"/>
+        <result property="height" column="height"/>        
+    </resultMap>
+    
+    <resultMap type="Notification" id="NotificationMap">
+        <result property="message" column="message"/>
+        <result property="subject" column="subject"/>
+        <result property="createTime" javaType="java.util.Date" column="create_time"/>
     </resultMap>
     
 	<!-- for secondary level caching -->

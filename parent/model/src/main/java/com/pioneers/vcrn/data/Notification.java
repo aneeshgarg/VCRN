@@ -41,4 +41,12 @@ public class Notification extends BaseObject {
         this.createTime = createTime;
     }
 
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        builder.append("Notification [message=").append(message).append(", subject=").append(subject).append(", createTime=").append(createTime)
+                .append("]");
+        return builder.toString();
+    }
+
 }

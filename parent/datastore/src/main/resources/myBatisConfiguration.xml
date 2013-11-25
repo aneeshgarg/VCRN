@@ -5,6 +5,11 @@
 <configuration>
 	<typeAliases>
 		<typeAlias type="com.pioneers.vcrn.data.Account" alias="Account" />
+		<typeAlias type="com.pioneers.vcrn.data.MedicalProfessional" alias="MedicalProfessional" />
+		<typeAlias type="com.pioneers.vcrn.data.Patient" alias="Patient" />
+		<typeAlias type="com.pioneers.vcrn.data.PersonInfo" alias="PersonInfo" />
+		<typeAlias type="com.pioneers.vcrn.data.HealthData" alias="HealthData" />
+		<typeAlias type="com.pioneers.vcrn.data.Notification" alias="Notification" />
 		<typeAlias type="com.pioneers.vcrn.request.LoginRequest" alias="LoginRequest" />
 	</typeAliases>
 	<environments default="development">

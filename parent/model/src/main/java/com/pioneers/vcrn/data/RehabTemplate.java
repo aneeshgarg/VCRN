@@ -30,4 +30,11 @@ public class RehabTemplate extends RehabPlan {
         this.templateId = templateId;
     }
 
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        builder.append("RehabTemplate [planName=").append(planName).append(", templateId=").append(templateId).append("]").append(super.toString());
+        return builder.toString();
+    }
+
 }

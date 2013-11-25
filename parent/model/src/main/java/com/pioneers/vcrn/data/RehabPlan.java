@@ -22,8 +22,8 @@ public class RehabPlan extends BaseObject {
     private double            lap;
     private double            hap;
     private double            cholestrolGoal;
-    private double            habp;
-    private double            labp;
+    private String            habp;
+    private String            labp;
     private double            bmiGoal;
     private List<Exercise>    exerciseList;
     private List<Medication>  medicationList;
@@ -92,19 +92,19 @@ public class RehabPlan extends BaseObject {
         this.cholestrolGoal = cholestrolGoal;
     }
 
-    public double getHabp() {
+    public String getHabp() {
         return habp;
     }
 
-    public void setHabp(double habp) {
+    public void setHabp(String habp) {
         this.habp = habp;
     }
 
-    public double getLabp() {
+    public String getLabp() {
         return labp;
     }
 
-    public void setLabp(double labp) {
+    public void setLabp(String labp) {
         this.labp = labp;
     }
 
@@ -130,6 +130,17 @@ public class RehabPlan extends BaseObject {
 
     public void setMedicationList(List<Medication> medicationList) {
         this.medicationList = medicationList;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        builder.append("RehabPlan [planId=").append(planId).append(", sodiumGoal=").append(sodiumGoal).append(", calorieGoal=").append(calorieGoal)
+                .append(", createDate=").append(createDate).append(", updateDate=").append(updateDate).append(", lap=").append(lap).append(", hap=")
+                .append(hap).append(", cholestrolGoal=").append(cholestrolGoal).append(", habp=").append(habp).append(", labp=").append(labp)
+                .append(", bmiGoal=").append(bmiGoal).append(", exerciseList=").append(exerciseList).append(", medicationList=")
+                .append(medicationList).append("]");
+        return builder.toString();
     }
 
 }

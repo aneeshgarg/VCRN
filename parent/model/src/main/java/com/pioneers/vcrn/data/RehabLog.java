@@ -18,7 +18,7 @@ public class RehabLog extends BaseObject {
     private long              logId;
     private Date              createDate;
     private int               pulse;
-    private int               bloodPressure;
+    private String            bloodPressure;
     private double            weight;
     private boolean           medicineTaken;
     private boolean           excerciseDone;
@@ -56,11 +56,11 @@ public class RehabLog extends BaseObject {
         this.pulse = pulse;
     }
 
-    public int getBloodPressure() {
+    public String getBloodPressure() {
         return bloodPressure;
     }
 
-    public void setBloodPressure(int bloodPressure) {
+    public void setBloodPressure(String bloodPressure) {
         this.bloodPressure = bloodPressure;
     }
 
@@ -94,6 +94,16 @@ public class RehabLog extends BaseObject {
 
     public void setDietList(List<Diet> dietList) {
         this.dietList = dietList;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        builder.append("RehabLog [patientId=").append(patientId).append(", logId=").append(logId).append(", createDate=").append(createDate)
+                .append(", pulse=").append(pulse).append(", bloodPressure=").append(bloodPressure).append(", weight=").append(weight)
+                .append(", medicineTaken=").append(medicineTaken).append(", excerciseDone=").append(excerciseDone).append(", dietList=")
+                .append(dietList).append("]");
+        return builder.toString();
     }
 
 }

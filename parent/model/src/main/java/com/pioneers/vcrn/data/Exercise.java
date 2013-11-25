@@ -12,8 +12,8 @@ public class Exercise extends BaseObject {
     private static final long serialVersionUID = -285837474314418679L;
 
     private String            excerciseName;
-    private int               timeToSpend;
-    private int               repetitions;
+    private String            timeToSpend;
+    private String            repetitions;
     private double            weight;
 
     public String getExcerciseName() {
@@ -24,19 +24,19 @@ public class Exercise extends BaseObject {
         this.excerciseName = excerciseName;
     }
 
-    public int getTimeToSpend() {
+    public String getTimeToSpend() {
         return timeToSpend;
     }
 
-    public void setTimeToSpend(int timeToSpend) {
+    public void setTimeToSpend(String timeToSpend) {
         this.timeToSpend = timeToSpend;
     }
 
-    public int getRepetitions() {
+    public String getRepetitions() {
         return repetitions;
     }
 
-    public void setRepetitions(int repetitions) {
+    public void setRepetitions(String repetitions) {
         this.repetitions = repetitions;
     }
 
@@ -46,6 +46,14 @@ public class Exercise extends BaseObject {
 
     public void setWeight(double weight) {
         this.weight = weight;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        builder.append("Exercise [excerciseName=").append(excerciseName).append(", timeToSpend=").append(timeToSpend).append(", repetitions=")
+                .append(repetitions).append(", weight=").append(weight).append("]");
+        return builder.toString();
     }
 
 }

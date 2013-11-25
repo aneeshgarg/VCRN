@@ -1,6 +1,5 @@
 package com.pioneers.vcrn.data;
 
-
 /**
  * 
  * @author Aneesh Garg
@@ -10,7 +9,7 @@ public class HealthData extends BaseObject {
     private static final long serialVersionUID = 3108206740692167735L;
 
     private long              fileId;
-    private int               bloodPressure;
+    private String            bloodPressure;
     private int               pulse;
     private double            calorieIndex;
     private double            sodiumConsumption;
@@ -27,11 +26,11 @@ public class HealthData extends BaseObject {
         this.fileId = fileId;
     }
 
-    public int getBloodPressure() {
+    public String getBloodPressure() {
         return bloodPressure;
     }
 
-    public void setBloodPressure(int bloodPressure) {
+    public void setBloodPressure(String bloodPressure) {
         this.bloodPressure = bloodPressure;
     }
 
@@ -89,6 +88,16 @@ public class HealthData extends BaseObject {
 
     public void setHeight(double height) {
         this.height = height;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        builder.append("HealthData [fileId=").append(fileId).append(", bloodPressure=").append(bloodPressure).append(", pulse=").append(pulse)
+                .append(", calorieIndex=").append(calorieIndex).append(", sodiumConsumption=").append(sodiumConsumption).append(", bmiIndex=")
+                .append(bmiIndex).append(", cholestrolIndex=").append(cholestrolIndex).append(", weight=").append(weight).append(", height=")
+                .append(height).append("]");
+        return builder.toString();
     }
 
 }
