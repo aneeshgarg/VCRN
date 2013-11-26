@@ -91,8 +91,8 @@ public class RestHelper {
         }
         return null;
     }
-
-    private void printResponseJson(InputStreamReader inputStreamReader) throws IOException {
+ 
+    public void printResponseJson(InputStreamReader inputStreamReader) throws IOException {
         BufferedReader reader = new BufferedReader(inputStreamReader);
         String json = "";
         String line = reader.readLine();

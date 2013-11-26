@@ -14,6 +14,9 @@
 		<typeAlias type="com.pioneers.vcrn.data.Exercise" alias="Exercise" />
 		<typeAlias type="com.pioneers.vcrn.data.Medication" alias="Medication" />
 		<typeAlias type="com.pioneers.vcrn.data.RehabTemplate" alias="RehabTemplate" />
+		<typeAlias type="com.pioneers.vcrn.data.RehabLog" alias="RehabLog" />
+		<typeAlias type="com.pioneers.vcrn.data.Diet" alias="Diet" />
+		<typeAlias type="com.pioneers.vcrn.data.Report" alias="Report" />
 		<typeAlias type="com.pioneers.vcrn.request.LoginRequest" alias="LoginRequest" />
 	</typeAliases>
 	<environments default="development">
@@ -23,7 +26,7 @@
 				<property name="driver" value="com.mysql.jdbc.Driver" />
 				<property name="url" value="jdbc:mysql://localhost:3306/vcrn" />
 				<property name="username" value="root" />
-				<property name="password" value="root123456" />
+				<property name="password" value="root" />
 			</dataSource>
 		</environment>
 	</environments>

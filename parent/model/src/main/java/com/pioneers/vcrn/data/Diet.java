@@ -6,16 +6,39 @@ package com.pioneers.vcrn.data;
  * @since Nov 22, 2013
  */
 public class Diet extends BaseObject {
+
     /**
      * 
      */
     private static final long serialVersionUID = 2215052385468307544L;
 
+    private double            logId;
     private double            calories;
     private double            sodium;
     private double            cholestrol;
     private String            foodName;
     private double            fat;
+
+    public Diet() {
+        super();
+    }
+
+    public Diet(String foodName, double calories, double sodium, double cholestrol, double fat) {
+        super();
+        this.calories = calories;
+        this.sodium = sodium;
+        this.cholestrol = cholestrol;
+        this.foodName = foodName;
+        this.fat = fat;
+    }
+
+    public double getLogId() {
+        return logId;
+    }
+
+    public void setLogId(double logId) {
+        this.logId = logId;
+    }
 
     public double getCalories() {
         return calories;
@@ -60,8 +83,8 @@ public class Diet extends BaseObject {
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
-        builder.append("Diet [calories=").append(calories).append(", sodium=").append(sodium).append(", cholestrol=").append(cholestrol)
-                .append(", foodName=").append(foodName).append(", fat=").append(fat).append("]");
+        builder.append("Diet [logId=").append(logId).append(", calories=").append(calories).append(", sodium=").append(sodium)
+                .append(", cholestrol=").append(cholestrol).append(", foodName=").append(foodName).append(", fat=").append(fat).append("]");
         return builder.toString();
     }
 
