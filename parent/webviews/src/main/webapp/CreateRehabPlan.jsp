@@ -35,11 +35,12 @@
 			<%}%>
 		<center>
 		<div id="contentpage" class="contentpage">
-			  Select Rehab Plan Template To Use: 	<select class="firstletter" name="selectedTemplate">
+			<form action="rehabplan" method="post">
+			  Select Rehab Plan Template To Use: 	<select class="firstletter" name="selectedTemplate" onChange="this.form.submit()">
 			  											<option value="">Select Template</option>
 													  	<c:forEach var="template" items="${templateBean.rehabTemplateList}">
-							           					 <option value="${template.planName}">${template.planName}</option>
-							       						 </c:forEach>
+							           					 <option value="${template.templateId}">${template.planName}</option>
+							      						 </c:forEach>
 													  </select>
 			    <div class="wideCenter">
 			        <h3>Create Rehab Plan For Patient John Smith</h3>
@@ -52,7 +53,7 @@
 			                </tr>
 			                <tr >
 			                    <td style="text-align:right">Lowest Acceptable Pulse: </td>
-			                    <td style="text-align:left"><input type="text" style="width: 50px" /></td>	
+			                    <td style="text-align:left"><input type="text" style="width: 50px" value="${template.labp}"/></td>	
 			                </tr>
 			                <tr >
 			                    <td style="text-align:right">Highest Acceptable Pulse:</td>
@@ -176,6 +177,7 @@
 			        <input type="button" value="Save Plan" />
 			
 			    </div>
+			    </form>
 		</div></center>
 	
 		<div class="footer"><p>@ 2013 - Virtual Cardiac Rehabilitation Nurse</p></div>	

@@ -27,27 +27,33 @@ public class RehabPlanServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		RehabTemplateResponse templates = new RehabTemplateResponse();
-		
-		try {
-			templates = (RehabTemplateResponse) new RestHelper().callRestService("/facade/getrehabtemplates", "GET", null, RehabTemplateResponse.class);
-            if (templates != null)
-                System.out.println(templates.toString());
-            else{
-            	request.setAttribute("errormessage", "Unable to get Rehab Plan Templates!");
-            	request.getRequestDispatcher("CreateRehabPlan.jsp").forward(request, response);
-                return;
-            }
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            e.printStackTrace();
-        }
-		
-		HttpSession session = request.getSession();
-		session.setAttribute("templateBean", templates);
-		
-		request.getRequestDispatcher("CreateRehabPlan.jsp").forward(request, response);
-        return;
+		if (request.getParameter("selectedTemplate") == null){
+			
+				RehabTemplateResponse templates = new RehabTemplateResponse();
+				
+				try {
+					templates = (RehabTemplateResponse) new RestHelper().callRestService("/facade/getrehabtemplates", "GET", null, RehabTemplateResponse.class);
+		            if (templates != null)
+		                System.out.println(templates.toString());
+		            else{
+		            	request.setAttribute("errormessage", "Unable to get Rehab Plan Templates!");
+		            	request.getRequestDispatcher("CreateRehabPlan.jsp").forward(request, response);
+		                return;
+		            }
+		        } catch (Exception e) {
+		            System.out.println(e.getMessage());
+		            e.printStackTrace();
+		        }
+				
+				HttpSession session = request.getSession();
+				session.setAttribute("templateBean", templates);
+				
+				request.getRequestDispatcher("CreateRehabPlan.jsp").forward(request, response);
+		        return;
+		}
+		else{
+			
+		}
 	}
 
 }
