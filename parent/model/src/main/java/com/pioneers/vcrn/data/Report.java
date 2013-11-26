@@ -75,4 +75,13 @@ public class Report extends BaseObject {
         this.calories = calories;
     }
 
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        builder.append("Report [reportId=").append(reportId).append(", cholestrol=").append(cholestrol).append(", fat=").append(fat)
+                .append(", excercise=").append(excercise).append(", medication=").append(medication).append(", sodium=").append(sodium)
+                .append(", calories=").append(calories).append("]");
+        return builder.toString();
+    }
+
 }

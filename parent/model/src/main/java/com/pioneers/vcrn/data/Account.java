@@ -52,8 +52,10 @@ public class Account extends PersonInfo {
 
     @Override
     public String toString() {
-        return "Account [accountId=" + accountId + ", username=" + username + ", active=" + active + ", role=" + role + ", notificationList="
-                + notificationList + "]";
+        StringBuilder builder = new StringBuilder();
+        builder.append("Account [accountId=").append(accountId).append(", username=").append(username).append(", active=").append(active)
+                .append(", role=").append(role).append(", notificationList=").append(notificationList).append("]").append(super.toString());
+        return builder.toString();
     }
 
 }

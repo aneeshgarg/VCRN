@@ -57,4 +57,12 @@ public class Diet extends BaseObject {
         this.fat = fat;
     }
 
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        builder.append("Diet [calories=").append(calories).append(", sodium=").append(sodium).append(", cholestrol=").append(cholestrol)
+                .append(", foodName=").append(foodName).append(", fat=").append(fat).append("]");
+        return builder.toString();
+    }
+
 }

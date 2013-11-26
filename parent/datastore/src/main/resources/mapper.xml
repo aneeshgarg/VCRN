@@ -5,17 +5,134 @@
 <mapper namespace="com.pioneers.vcrn.datastore.datamap">
     <select id="Login" parameterType="LoginRequest" resultMap="AccountMap">
         select * from account a
+        left outer join personal_info p on a.acct_id = p.acct_id
         <where>
              a.username = #{username} and
              a.password = #{password}            
         </where>        	
     </select>
+    <select id="GetMedicalProfessionalAccount" parameterType="long" resultMap="MPAccountMap">
+        select * from account a
+        left outer join personal_info p on a.acct_id = p.acct_id
+        left outer join notification n on a.acct_id = n.doctor_id
+        where a.acct_id = #{param}
+    </select>
+    <select id="GetPatientListForMP" parameterType="long" resultMap="PatientMapForMPMap">
+        select * from account a
+        left outer join personal_info p on a.acct_id = p.acct_id
+        left outer join patient_health_data h on h.acct_id = a.acct_id
+        where a.doctor_id = #{param}
+    </select>
+    <select id="GetPatientAccount" parameterType="long" resultMap="PatientAccountMap">
+        select * from account a
+        left outer join personal_info p on a.acct_id = p.acct_id
+        left outer join notification n on a.acct_id = n.patient_id
+        left outer join patient_health_data h on h.acct_id = a.acct_id
+        where a.acct_id = #{param}        
+    </select>
+    <select id="GetMedicalProfessionalForPatient" resultMap="MPMapForPatient">
+        select * from account a
+        left outer join personal_info p on a.acct_id = p.acct_id
+        where a.acct_id = #{param}
+    </select>
+    <select id="GetRehabPlan" parameterType="long" resultMap="RehabPlanMap">
+        select * from rehab_plan r
+        left outer join exercise e on e.plan_id = r.plan_id
+        left outer join medication m on m.plan_id = r.plan_id
+        where r.patient_id = #{param}
+    </select>
+    <select id="GetRehabTemplates" resultMap="RehabTemplateMap">
+        select * from rehabplantemplate rpt
+        left outer join rehab_plan r on r.plan_id = rpt.plan_id
+        left outer join exercise e on e.plan_id = r.plan_id
+        left outer join medication m on m.plan_id = r.plan_id
+    </select>
     
-    <resultMap type="Account" id="AccountMap">
+    <resultMap type="PersonInfo" id="PersonInfoMap">
+        <result property="firstName" column="first_name"/>
+        <result property="lastName" column="last_name"/>
+        <result property="email" column="email"/>
+        <result property="gender" column="gender"/>
+        <result property="dob" column="dob"/>        
+    </resultMap>
+    
+    <resultMap type="Account" id="AccountMap" extends="PersonInfoMap">
         <result property="accountId" column="acct_id"/>
         <result property="username" column="username"/>
         <result property="active" javaType="boolean" column="status"/>
         <result property="role" column="role"/>
+        <collection property="notificationList" resultMap="NotificationMap"/>
+    </resultMap>
+    
+    <resultMap type="MedicalProfessional" id="MPAccountMap" extends="AccountMap">
+        <collection property="patientList" column="acct_id" select="GetPatientListForMP"/>
+    </resultMap>
+    
+    <resultMap type="Patient" id="PatientAccountMap" extends="AccountMap">
+        <association property="healthData" resultMap="HealthDataMap"/> 
+        <association property="rehabPlan" column="acct_id" select="GetRehabPlan"/>
+        <association property="doctor" column="doctor_id" select="GetMedicalProfessionalForPatient"/>       
+    </resultMap>
+    
+    <resultMap type="Patient" id="PatientMapForMPMap" extends="AccountMap">
+        <association property="healthData" resultMap="HealthDataMap"/>
+        <association property="rehabPlan" column="acct_id" select="GetRehabPlan"/>
+    </resultMap>
+    <resultMap type="MedicalProfessional" id="MPMapForPatient" extends="AccountMap">
+    </resultMap>
+    
+    <resultMap type="HealthData" id="HealthDataMap">
+        <result property="fileId" column="file_id"/>
+        <result property="bloodPressure" column="blood_pressure"/>
+        <result property="pulse" column="pulse"/>
+        <result property="calorieIndex" column="calorie_index"/>
+        <result property="sodiumConsumption" column="sodium_consumption"/>
+        <result property="bmiIndex" column="bmi_index"/>
+        <result property="cholestrolIndex" column="cholestrol_index"/>
+        <result property="weight" column="weight"/>
+        <result property="height" column="height"/>        
+    </resultMap>
+    
+    <resultMap type="Notification" id="NotificationMap">
+        <result property="message" column="message"/>
+        <result property="subject" column="subject"/>
+        <result property="createTime" javaType="java.util.Date" column="create_time"/>
+    </resultMap>
+    <resultMap type="RehabPlan" id="RehabPlanMap">
+        <result property="planId" column="plan_id"/>
+        <result property="templateId" column="template_id"/>
+        <result property="sodiumGoal" column="sodium_goal"/>
+        <result property="calorieGoal" column="calorie_goal"/>
+        <result property="createDate" javaType="java.util.Date" column="create_date"/>
+        <result property="updateDate" javaType="java.util.Date" column="update_date"/>
+        <result property="lap" column="lap"/>
+        <result property="hap" column="hap"/>
+        <result property="cholestrolGoal" column="cholestrol_goal"/>
+        <result property="habp" column="habp"/>
+        <result property="labp" column="labp"/>
+        <result property="bmiGoal" column="bmi_goal"/>
+        <collection property="exerciseList" resultMap="ExerciseMap"/>
+        <collection property="medicationList" resultMap="MedicationMap"/>        
+    </resultMap>
+    
+    <resultMap type="Exercise" id="ExerciseMap">
+        <result property="exerciseId" column="exercise_id"/>
+        <result property="exerciseName" column="exercise_name"/>
+        <result property="timeToSpend" column="time_to_spend"/>
+        <result property="repetitions" column="repetitions"/>
+        <result property="weight" column="weight"/>        
+    </resultMap>
+    
+    <resultMap type="Medication" id="MedicationMap">
+        <result property="medicationId" column="medication_id"/>
+        <result property="timeToTake" column="time_to_take"/>
+        <result property="medicineName" column="medicine_name"/>
+        <result property="dosage" column="dosage"/>
+        <result property="type" column="type"/>        
+    </resultMap>
+    
+    <resultMap type="RehabTemplate" id="RehabTemplateMap" extends="RehabPlanMap">
+        <result property="planName" column="planname"/>
     </resultMap>
     
 	<!-- for secondary level caching -->

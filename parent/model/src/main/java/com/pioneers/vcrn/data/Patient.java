@@ -1,6 +1,5 @@
 package com.pioneers.vcrn.data;
 
-
 /**
  * 
  * @author Aneesh Garg
@@ -14,6 +13,7 @@ public class Patient extends Account {
 
     private Account           doctor;
     private HealthData        healthData;
+    private RehabPlan         rehabPlan;
 
     public Account getDoctor() {
         return doctor;
@@ -29,6 +29,22 @@ public class Patient extends Account {
 
     public void setHealthData(HealthData healthData) {
         this.healthData = healthData;
+    }
+
+    public RehabPlan getRehabPlan() {
+        return rehabPlan;
+    }
+
+    public void setRehabPlan(RehabPlan rehabPlan) {
+        this.rehabPlan = rehabPlan;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        builder.append("Patient [doctor=").append(doctor).append(", healthData=").append(healthData).append(", rehabPlan=").append(rehabPlan)
+                .append("]").append(super.toString());
+        return builder.toString();
     }
 
 }

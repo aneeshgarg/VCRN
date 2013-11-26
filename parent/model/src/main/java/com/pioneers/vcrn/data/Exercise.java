@@ -11,32 +11,41 @@ public class Exercise extends BaseObject {
      */
     private static final long serialVersionUID = -285837474314418679L;
 
-    private String            excerciseName;
-    private int               timeToSpend;
-    private int               repetitions;
+    private long              exerciseId;
+    private String            exerciseName;
+    private String            timeToSpend;
+    private String            repetitions;
     private double            weight;
 
-    public String getExcerciseName() {
-        return excerciseName;
+    public long getExerciseId() {
+        return exerciseId;
     }
 
-    public void setExcerciseName(String excerciseName) {
-        this.excerciseName = excerciseName;
+    public void setExerciseId(long exerciseId) {
+        this.exerciseId = exerciseId;
     }
 
-    public int getTimeToSpend() {
+    public String getExerciseName() {
+        return exerciseName;
+    }
+
+    public void setExerciseName(String exerciseName) {
+        this.exerciseName = exerciseName;
+    }
+
+    public String getTimeToSpend() {
         return timeToSpend;
     }
 
-    public void setTimeToSpend(int timeToSpend) {
+    public void setTimeToSpend(String timeToSpend) {
         this.timeToSpend = timeToSpend;
     }
 
-    public int getRepetitions() {
+    public String getRepetitions() {
         return repetitions;
     }
 
-    public void setRepetitions(int repetitions) {
+    public void setRepetitions(String repetitions) {
         this.repetitions = repetitions;
     }
 
@@ -46,6 +55,14 @@ public class Exercise extends BaseObject {
 
     public void setWeight(double weight) {
         this.weight = weight;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        builder.append("Exercise [exerciseId=").append(exerciseId).append(", exerciseName=").append(exerciseName).append(", timeToSpend=")
+                .append(timeToSpend).append(", repetitions=").append(repetitions).append(", weight=").append(weight).append("]");
+        return builder.toString();
     }
 
 }

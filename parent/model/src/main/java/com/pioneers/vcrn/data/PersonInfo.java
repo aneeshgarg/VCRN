@@ -56,4 +56,12 @@ public class PersonInfo extends BaseObject {
     public void setDob(Date dob) {
         this.dob = dob;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        builder.append("PersonInfo [firstName=").append(firstName).append(", lastName=").append(lastName).append(", email=").append(email)
+                .append(", gender=").append(gender).append(", dob=").append(dob).append("]");
+        return builder.toString();
+    }
 }
