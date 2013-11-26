@@ -18,7 +18,7 @@
 	<div id="logincanvas">
 		<div id="PageHeader" class="pageheader">
 			<jsp:include page="pageheader.jsp"/>	
-			<div class="logout">Logged in as ${accountBean.username}. &nbsp; &nbsp; <a href="logout"><input type="button" style="float:right" value="Logout"/></a></div>
+			<div class="logout">Hi ${accountBean.firstName} !!!<a href="logout"><input type="button" style="float:right" value="Logout"/></a></div>
 			<a class="currentpage" href="home.jsp">Home</a>	
 			<c:choose> 		
 				<c:when	 test="${accountBean.getRole().trim() == 'patient'}">
@@ -40,14 +40,14 @@
 			   			 </div>
 					    <div class="wideCenter">
 					        <h3>Current Alerts</h3>
-					        <table class="centercell">
+					        	<c:forEach var="alert" items="${accountBean.notificationList}">							        
 					            <tr>
-					                <td colspan="2">
-					                    <strong class="alert">Your cardiologist wants to see you in his office as soon as possible.
-					                    </strong>
+					                <td class="leftcell">
+					                    <strong class="alert">${alert.message}</strong>
+					                    <a href="/report?patientid=${alert.patientId}">View Patient Report Card</a>
 					                </td>
 					            </tr>
-					            <tr class="centercell">You haven't logged any exercise in 4 days</tr>
+					            </c:forEach>
 					        </table>
 			    		</div>
 					</div></center>
@@ -57,8 +57,8 @@
 						<table style="width:100%">
 								<tr>
 									<td ><a class="aheader" href="PatientList.jsp">View Patient List</a></td>
-									<td ><a class="aheader" href="ViewPatientLog.jsp">Create Rehab Plan Template</a></td>
-							</tr></table>
+									<td ><a class="aheader" href="rehabplan">Create Rehab Plan</a></td>
+								</tr></table>
 					</div>
 					</div>
 								<center>
@@ -77,13 +77,10 @@
 					            <tr>
 					                <td class="leftcell">
 					                    <strong class="alert">${alert.message}</strong>
-					                    <a href="/report?patientid=${alert.patientid}">View Patient Report Card</a>
+					                    <a href="/report?patientid=${alert.patientId}">View Patient Report Card</a>
 					                </td>
 					            </tr>
 					            </c:forEach>
-					            <tr>
-					            	<td class="leftcell">John Smith has been assigned to you.   <a href="CreateRehabPlan.jsp">Create Rehab Plan</a></td>
-					            </tr>
 					        </table>
 			    		</div>
 					</div></center>

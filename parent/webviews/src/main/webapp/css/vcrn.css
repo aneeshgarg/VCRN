@@ -84,3 +84,6 @@ body.page{
 	width: 100%; text-align: center;
 }
 
+.firstletter {
+    text-transform: capitalize;
+}
