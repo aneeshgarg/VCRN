@@ -1,0 +1,89 @@
+@CHARSET "ISO-8859-1";
+
+a.aheader{
+    color: #c8c8c8;
+    text-decoration: none;
+}
+
+.logout{
+	width:100%;float:right;background-color: white;
+	text-align: right;
+}
+.pageheader{
+	    background-color: white;
+}  
+div.header{
+	color: #c8c8c8;
+    font-family: Rockwell, Consolas, "Courier New", Courier, monospace;
+    font-size: 1.3em;
+    margin: 0;
+    background-color: white;
+    
+}
+
+div.menu{
+	color: #c8c8c8;
+    font-family: Rockwell, Consolas, "Courier New", Courier, monospace;
+    font-size: 1.3em;
+    background-color: white;
+    font-weight: 300;
+    float: right;
+	width:80%;
+	text-align: center;
+    }
+    
+a.currentpage{
+	font-family: Rockwell, Consolas, "Courier New", Courier, monospace;
+    font-size: 1.3em;
+    float: left;
+	width:20%;
+	background-color: #efeeef;
+	font-weight: 300;
+	text-align: center;
+}    
+div.footer{
+	clear: both;
+    background-color: #e2e2e2;
+    font-size: .8em;
+    text-align: left;
+    height: 50px;
+    padding: 2px 0;
+    margin: 0;
+    position:fixed;
+    bottom:0px;
+    width:100%;
+}
+
+div.contentpage{
+	    font-family: "Segoe UI", Verdana, Helvetica, Sans-Serif;
+	    padding: 100px 0;	    
+}
+
+body.page{	    
+	background-color: #efeeef;}
+	
+.wideCenter {
+    text-align: center;
+    width: 100%;
+}
+
+.alert {
+    color: red;
+}
+
+.leftCell {
+    text-align: right; 
+        float: right;
+}
+
+.rightCell {
+ text-align: left;
+     float: left;
+}
+.centercell{
+	width: 100%; text-align: center;
+}
+
+.firstletter {
+    text-transform: capitalize;
+}
