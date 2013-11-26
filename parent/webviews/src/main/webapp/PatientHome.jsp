@@ -20,8 +20,6 @@
 			<jsp:include page="pageheader.jsp"/>	
 			<div class="logout">Logged in as ${accountBean.username}. &nbsp; &nbsp; <a href="logout"><input type="button" style="float:right" value="Logout"/></a></div>
 			<a class="currentpage" href="home.jsp">Home</a>	
-			<c:choose> 		
-				<c:when	 test="${accountBean.getRole().trim() == 'patient'}">
 					<div id="menu" class="menu">
 							<table style="width:100%">
 								<tr>
@@ -51,44 +49,7 @@
 					        </table>
 			    		</div>
 					</div></center>
-				</c:when>
-				<c:otherwise>
-					<div id="menu" class="menu">
-						<table style="width:100%">
-								<tr>
-									<td ><a class="aheader" href="PatientList.jsp">View Patient List</a></td>
-									<td ><a class="aheader" href="ViewPatientLog.jsp">Create Rehab Plan Template</a></td>
-							</tr></table>
-					</div>
-					</div>
-								<center>
-					<div id="contentpage" class="contentpage">
-						 <div class="wideCenter">
-			        			You have ${accountBean.patientList.size()} patient in our system.<br />
-			      			  <a href="PatientList.jsp">View Current Patients</a>
-			       			 <br/>
-			       			 <br/>
-			       			 <br/>
-			   			 </div>
-					    <div class="wideCenter">
-					        <h3>Current Alerts</h3>
-					        <table class="centercell">
-   								<c:forEach var="alert" items="${accountBean.notificationList}">							        
-					            <tr>
-					                <td class="leftcell">
-					                    <strong class="alert">${alert.message}</strong>
-					                    <a href="/report?patientid=${alert.patientid}">View Patient Report Card</a>
-					                </td>
-					            </tr>
-					            </c:forEach>
-					            <tr>
-					            	<td class="leftcell">John Smith has been assigned to you.   <a href="CreateRehabPlan.jsp">Create Rehab Plan</a></td>
-					            </tr>
-					        </table>
-			    		</div>
-					</div></center>
-				</c:otherwise>
-			</c:choose>			
+	
 		</div>		
 		
 		

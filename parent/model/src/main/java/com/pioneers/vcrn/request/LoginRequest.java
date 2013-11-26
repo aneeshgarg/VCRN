@@ -7,6 +7,8 @@ public class LoginRequest extends BaseRequest {
     private static final long serialVersionUID = -9030892984328267587L;
     private String username;
 	private String password;
+	
+	public LoginRequest(){}
 
 	public String getUsername() {
 		return username;
