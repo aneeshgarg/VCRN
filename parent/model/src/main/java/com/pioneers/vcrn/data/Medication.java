@@ -11,17 +11,26 @@ public class Medication extends BaseObject {
      */
     private static final long serialVersionUID = 137679477556271550L;
 
-    private String            timeTotake;
+    private long              medicationId;
+    private String            timeToTake;
     private String            medicineName;
     private String            dosage;
     private String            type;
 
-    public String getTimeTotake() {
-        return timeTotake;
+    public long getMedicationId() {
+        return medicationId;
     }
 
-    public void setTimeTotake(String timeTotake) {
-        this.timeTotake = timeTotake;
+    public void setMedicationId(long medicationId) {
+        this.medicationId = medicationId;
+    }
+
+    public String getTimeToTake() {
+        return timeToTake;
+    }
+
+    public void setTimeToTake(String timeToTake) {
+        this.timeToTake = timeToTake;
     }
 
     public String getMedicineName() {
@@ -51,8 +60,8 @@ public class Medication extends BaseObject {
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
-        builder.append("Medication [timeTotake=").append(timeTotake).append(", medicineName=").append(medicineName).append(", dosage=")
-                .append(dosage).append(", type=").append(type).append("]");
+        builder.append("Medication [medicationId=").append(medicationId).append(", timeToTake=").append(timeToTake).append(", medicineName=")
+                .append(medicineName).append(", dosage=").append(dosage).append(", type=").append(type).append("]");
         return builder.toString();
     }
 

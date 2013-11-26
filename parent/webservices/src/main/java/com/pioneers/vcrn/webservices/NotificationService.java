@@ -1,9 +1,7 @@
 package com.pioneers.vcrn.webservices;
 
-import java.util.List;
-
 import com.pioneers.vcrn.data.Notification;
-import com.pioneers.vcrn.datastore.NotificationDatastore;
+
 
 /**
  *
@@ -11,13 +9,10 @@ import com.pioneers.vcrn.datastore.NotificationDatastore;
  * @since Nov 22, 2013
  */
 public class NotificationService {
-    
-    List<Notification> getPatientNotificationsForPatient(long patientId) {
-        return new NotificationDatastore().getNotificationsByPatient(patientId);
-    }
-    
-    List<Notification> getPatientNotificationsForDoctor(long doctorId) {
-        return new NotificationDatastore().getNotificationsByDoctor(doctorId);
+
+    public void processNotification(Notification notification) {
+        // TODO Auto-generated method stub
+        
     }
 
 }

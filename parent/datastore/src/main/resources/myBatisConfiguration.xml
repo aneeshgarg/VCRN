@@ -10,6 +10,10 @@
 		<typeAlias type="com.pioneers.vcrn.data.PersonInfo" alias="PersonInfo" />
 		<typeAlias type="com.pioneers.vcrn.data.HealthData" alias="HealthData" />
 		<typeAlias type="com.pioneers.vcrn.data.Notification" alias="Notification" />
+		<typeAlias type="com.pioneers.vcrn.data.RehabPlan" alias="RehabPlan" />
+		<typeAlias type="com.pioneers.vcrn.data.Exercise" alias="Exercise" />
+		<typeAlias type="com.pioneers.vcrn.data.Medication" alias="Medication" />
+		<typeAlias type="com.pioneers.vcrn.data.RehabTemplate" alias="RehabTemplate" />
 		<typeAlias type="com.pioneers.vcrn.request.LoginRequest" alias="LoginRequest" />
 	</typeAliases>
 	<environments default="development">

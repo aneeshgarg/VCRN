@@ -38,11 +38,13 @@ public class HomeServlet extends HttpServlet {
                     mp = (MedicalProfessional) restHelper.callRestService("/facade/getmpinfo/"+account.getAccountId(), "GET", null, MedicalProfessional.class);
                     if (mp!= null)
                         System.out.println(mp.toString());
+                    account = mp;
                 }
                 else if (Constant.PATIENT_ROLE.equals(account.getRole())) {
                     patient = (Patient) restHelper.callRestService("/facade/getpatientinfo/"+account.getAccountId(), "GET", null, Patient.class);
                     if (patient!= null)
                         System.out.println(patient.toString());
+                    account = patient;
                 }
             }
         } catch (Exception e) {

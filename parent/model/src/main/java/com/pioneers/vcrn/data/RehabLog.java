@@ -17,7 +17,7 @@ public class RehabLog extends BaseObject {
     private long              patientId;
     private long              logId;
     private Date              createDate;
-    private int               pulse;
+    private double            pulse;
     private String            bloodPressure;
     private double            weight;
     private boolean           medicineTaken;
@@ -48,11 +48,11 @@ public class RehabLog extends BaseObject {
         this.createDate = createDate;
     }
 
-    public int getPulse() {
+    public double getPulse() {
         return pulse;
     }
 
-    public void setPulse(int pulse) {
+    public void setPulse(double pulse) {
         this.pulse = pulse;
     }
 

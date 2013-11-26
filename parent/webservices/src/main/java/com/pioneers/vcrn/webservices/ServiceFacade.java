@@ -12,6 +12,8 @@ import com.pioneers.vcrn.data.Account;
 import com.pioneers.vcrn.data.MedicalProfessional;
 import com.pioneers.vcrn.data.Patient;
 import com.pioneers.vcrn.request.LoginRequest;
+import com.pioneers.vcrn.request.RehabLogRequest;
+import com.pioneers.vcrn.response.RehabTemplateResponse;
 
 @Path("/facade")
 public class ServiceFacade {
@@ -20,14 +22,14 @@ public class ServiceFacade {
     @Path("/login")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Account login(LoginRequest request) {
+    public Account login(LoginRequest request) throws Exception {
         Account account = new AccountService().login(request);
         return account;
     }
     
     @GET
     @Path("/getmpinfo/{accountId}")
-    public MedicalProfessional getMPInfo(@PathParam("accountId")long accountId) {
+    public MedicalProfessional getMPInfo(@PathParam("accountId")long accountId) throws Exception {
         MedicalProfessional mp = null;
         mp = new AccountService().getMPInfo(accountId);
         return mp;
@@ -35,10 +37,23 @@ public class ServiceFacade {
     
     @GET
     @Path("/getpatientinfo/{accountId}")
-    public Patient getPatientInfo(@PathParam("accountId")long accountId) {
+    public Patient getPatientInfo(@PathParam("accountId")long accountId) throws Exception {
         Patient patient = null;
         patient = new AccountService().getPatientInfo(accountId);
         return patient;
+    }
+    
+    @GET
+    @Path("/getrehabtemplates")
+    public RehabTemplateResponse getReahabTemplates() throws Exception {
+        return new SupportService().getRehabTemplates();
+    }
+    
+    @POST
+    @Path("/savelog")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public void  saveRehabLog(RehabLogRequest logRequest) throws Exception {
+        new CoreService().saveLog(logRequest);
     }
 
 }

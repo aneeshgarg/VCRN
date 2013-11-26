@@ -1,8 +1,11 @@
 package com.pioneers.vcrn.webviews.helper;
 
+import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.lang.ProcessBuilder.Redirect;
 import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -69,8 +72,10 @@ public class RestHelper {
 
             System.out.println("Time for getting response from service=" + (endTimeServiceCall - startTimeServiceCall));
 
-            if (responseJson != null)
+            if (responseJson != null) {
+                //printResponseJson(new InputStreamReader(responseJson, "UTF-8"));
                 return getJsonParser().fromJson(new InputStreamReader(responseJson, "UTF-8"), responseClass);
+            }
         } 
         catch (JsonSyntaxException e) {
             System.out.println(e.getMessage());
@@ -86,6 +91,17 @@ public class RestHelper {
 
         }
         return null;
+    }
+
+    private void printResponseJson(InputStreamReader inputStreamReader) throws IOException {
+        BufferedReader reader = new BufferedReader(inputStreamReader);
+        String json = "";
+        String line = reader.readLine();
+        while (line != null) {
+            json += line;
+            line = reader.readLine();
+        }
+        System.out.println(json);
     }
 
     public static void dumpObject(Object o) {

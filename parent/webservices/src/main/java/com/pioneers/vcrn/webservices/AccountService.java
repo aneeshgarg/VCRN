@@ -8,17 +8,19 @@ import com.pioneers.vcrn.request.LoginRequest;
 
 public class AccountService {
 
-    public Account login(LoginRequest request) {
+    public Account login(LoginRequest request) throws Exception {
         AccountDatastore store = new AccountDatastore();
         Account account = store.getAccountInfo(request);
         return account;
     }
     
-    public MedicalProfessional getMPInfo(long accountId) {
+    public MedicalProfessional getMPInfo(long accountId) throws Exception {
+        System.out.println("getMPInfo::: "+accountId);
         return new AccountDatastore().getMedicalProfessionalInfo(accountId);
     }
 
-    public Patient getPatientInfo(long accountId) {
+    public Patient getPatientInfo(long accountId) throws Exception {
+        System.out.println("GetPatientInfo::: "+accountId);
         return new AccountDatastore().getPatientInfo(accountId);
     }
     

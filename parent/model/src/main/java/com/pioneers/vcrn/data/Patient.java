@@ -43,7 +43,7 @@ public class Patient extends Account {
     public String toString() {
         StringBuilder builder = new StringBuilder();
         builder.append("Patient [doctor=").append(doctor).append(", healthData=").append(healthData).append(", rehabPlan=").append(rehabPlan)
-                .append("]");
+                .append("]").append(super.toString());
         return builder.toString();
     }
 
