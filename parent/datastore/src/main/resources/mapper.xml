@@ -15,7 +15,7 @@
         select * from account a
         left outer join personal_info p on a.acct_id = p.acct_id
         left outer join notification n on a.acct_id = n.doctor_id
-        where a.acct_id = #{param}
+        where a.acct_id = #{param} order by n.create_time desc
     </select>
     <select id="GetPatientListForMP" parameterType="long" resultMap="PatientMapForMPMap">
         select * from account a
@@ -28,7 +28,7 @@
         left outer join personal_info p on a.acct_id = p.acct_id
         left outer join notification n on a.acct_id = n.patient_id
         left outer join patient_health_data h on h.acct_id = a.acct_id
-        where a.acct_id = #{param}        
+        where a.acct_id = #{param} order by n.create_time desc
     </select>
     <select id="GetMedicalProfessionalForPatient" resultMap="MPMapForPatient">
         select * from account a
@@ -47,6 +47,39 @@
         left outer join exercise e on e.plan_id = r.plan_id
         left outer join medication m on m.plan_id = r.plan_id
     </select>
+    <select id="GetPatientReport" parameterType="long" resultMap="ReportMap">
+        select * from report
+        where patient_id=#{param}
+        order by create_date desc limit 1
+    </select>
+    
+    <insert id="InsertRehabLog" parameterType="RehabLog" useGeneratedKeys="true">
+        insert into rehab_log
+        (acct_id,create_date,pulse,blood_pressure,weight,medicine_taken,exercise_done)
+        values
+        (#{patientId},#{createDate},#{pulse},#{bloodPressure},#{weight},#{medicineTaken},#{exerciseDone})
+		 <selectKey keyProperty="logId" resultType="long" order="AFTER">
+            select last_insert_id();
+        </selectKey>
+    </insert>
+    <insert id="InsertDiet" parameterType="Diet" useGeneratedKeys="true">
+        insert into diet_table
+        (log_id,calories,sodium,food_name,fat,cholestrol)
+        values
+        (#{logId},#{calories},#{sodium},#{foodName},#{fat},#{cholestrol})
+    </insert>
+    <insert id="InsertNotification" parameterType="Notification" useGeneratedKeys="true">
+        insert into notification
+        (patient_id,doctor_id,message,subject,create_time)
+        values
+        (#{patientId},#{doctorId},#{message},#{subject},#{createTime})
+    </insert>
+    <insert id="InsertReport" parameterType="Report">
+        insert into report
+        (patient_id,cholestrol,fat,exercise,medication,sodium,calories,create_date,overall_score)
+        values
+        (#{patientId},#{cholestrol},#{fat},#{excercise},#{medication},#{sodium},#{calories},#{createDate},#{overallScore})
+    </insert>
     
     <resultMap type="PersonInfo" id="PersonInfoMap">
         <result property="firstName" column="first_name"/>
@@ -71,12 +104,14 @@
     <resultMap type="Patient" id="PatientAccountMap" extends="AccountMap">
         <association property="healthData" resultMap="HealthDataMap"/> 
         <association property="rehabPlan" column="acct_id" select="GetRehabPlan"/>
+        <association property="lastReport" column="acct_id" select="GetPatientReport"/>
         <association property="doctor" column="doctor_id" select="GetMedicalProfessionalForPatient"/>       
     </resultMap>
     
     <resultMap type="Patient" id="PatientMapForMPMap" extends="AccountMap">
         <association property="healthData" resultMap="HealthDataMap"/>
         <association property="rehabPlan" column="acct_id" select="GetRehabPlan"/>
+        <association property="lastReport" column="acct_id" select="GetPatientReport"/>
     </resultMap>
     <resultMap type="MedicalProfessional" id="MPMapForPatient" extends="AccountMap">
     </resultMap>
@@ -93,7 +128,9 @@
         <result property="height" column="height"/>        
     </resultMap>
     
-    <resultMap type="Notification" id="NotificationMap">
+    <resultMap type="Notification" id="NotificationMap">        
+        <result property="patientId" column="patient_id"/>
+        <result property="doctorId" column="doctor_id"/>
         <result property="message" column="message"/>
         <result property="subject" column="subject"/>
         <result property="createTime" javaType="java.util.Date" column="create_time"/>
@@ -133,6 +170,19 @@
     
     <resultMap type="RehabTemplate" id="RehabTemplateMap" extends="RehabPlanMap">
         <result property="planName" column="planname"/>
+    </resultMap>
+    
+    <resultMap type="Report" id="ReportMap">
+        <result property="reportId" column="report_id"/>
+        <result property="patientId" column="patient_id"/>
+        <result property="cholestrol" column="cholestrol"/>
+        <result property="fat" column="fat"/>
+        <result property="exercise" column="exercise"/>
+        <result property="medication" column="medication"/>
+        <result property="sodium" column="sodium"/>
+        <result property="calories" column="calories"/>
+        <result property="createDate" column="create_date"/>
+        <result property="overallScore" column="overall_score"/>
     </resultMap>
     
 	<!-- for secondary level caching -->

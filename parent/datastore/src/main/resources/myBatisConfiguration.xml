@@ -14,6 +14,9 @@
 		<typeAlias type="com.pioneers.vcrn.data.Exercise" alias="Exercise" />
 		<typeAlias type="com.pioneers.vcrn.data.Medication" alias="Medication" />
 		<typeAlias type="com.pioneers.vcrn.data.RehabTemplate" alias="RehabTemplate" />
+		<typeAlias type="com.pioneers.vcrn.data.RehabLog" alias="RehabLog" />
+		<typeAlias type="com.pioneers.vcrn.data.Diet" alias="Diet" />
+		<typeAlias type="com.pioneers.vcrn.data.Report" alias="Report" />
 		<typeAlias type="com.pioneers.vcrn.request.LoginRequest" alias="LoginRequest" />
 	</typeAliases>
 	<environments default="development">

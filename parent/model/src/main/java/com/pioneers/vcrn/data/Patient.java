@@ -14,6 +14,7 @@ public class Patient extends Account {
     private Account           doctor;
     private HealthData        healthData;
     private RehabPlan         rehabPlan;
+    private Report            lastReport;
 
     public Account getDoctor() {
         return doctor;
@@ -39,11 +40,19 @@ public class Patient extends Account {
         this.rehabPlan = rehabPlan;
     }
 
+    public Report getLastReport() {
+        return lastReport;
+    }
+
+    public void setLastReport(Report lastReport) {
+        this.lastReport = lastReport;
+    }
+
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
         builder.append("Patient [doctor=").append(doctor).append(", healthData=").append(healthData).append(", rehabPlan=").append(rehabPlan)
-                .append("]").append(super.toString());
+                .append(", lastReport=").append(lastReport).append("]").append(super.toString());
         return builder.toString();
     }
 

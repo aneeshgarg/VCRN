@@ -21,7 +21,7 @@ public class RehabLog extends BaseObject {
     private String            bloodPressure;
     private double            weight;
     private boolean           medicineTaken;
-    private boolean           excerciseDone;
+    private boolean           exerciseDone;
     private List<Diet>        dietList;
 
     public long getPatientId() {
@@ -80,12 +80,12 @@ public class RehabLog extends BaseObject {
         this.medicineTaken = medicineTaken;
     }
 
-    public boolean isExcerciseDone() {
-        return excerciseDone;
+    public boolean isExerciseDone() {
+        return exerciseDone;
     }
 
-    public void setExcerciseDone(boolean excerciseDone) {
-        this.excerciseDone = excerciseDone;
+    public void setExerciseDone(boolean exerciseDone) {
+        this.exerciseDone = exerciseDone;
     }
 
     public List<Diet> getDietList() {
@@ -101,7 +101,7 @@ public class RehabLog extends BaseObject {
         StringBuilder builder = new StringBuilder();
         builder.append("RehabLog [patientId=").append(patientId).append(", logId=").append(logId).append(", createDate=").append(createDate)
                 .append(", pulse=").append(pulse).append(", bloodPressure=").append(bloodPressure).append(", weight=").append(weight)
-                .append(", medicineTaken=").append(medicineTaken).append(", excerciseDone=").append(excerciseDone).append(", dietList=")
+                .append(", medicineTaken=").append(medicineTaken).append(", exerciseDone=").append(exerciseDone).append(", dietList=")
                 .append(dietList).append("]");
         return builder.toString();
     }

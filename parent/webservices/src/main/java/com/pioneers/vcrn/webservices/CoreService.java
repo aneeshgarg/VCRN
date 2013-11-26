@@ -26,6 +26,8 @@ public class CoreService {
         Notification notification = checkNotifications(logRequest.getDoctorId(), log.getPatientId(), normalPulse, normalBP);
         if (notification != null)
             new NotificationService().processNotification(notification);
+        
+        new ReportService().generateReport(logRequest);
 
     }
 

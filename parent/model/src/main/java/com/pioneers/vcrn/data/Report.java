@@ -1,5 +1,7 @@
 package com.pioneers.vcrn.data;
 
+import java.util.Date;
+
 /**
  * 
  * @author Aneesh Garg
@@ -12,12 +14,15 @@ public class Report extends BaseObject {
     private static final long serialVersionUID = -8238275845046453635L;
 
     private long              reportId;
+    private long              patientId;
     private String            cholestrol;
     private String            fat;
-    private String            excercise;
+    private String            exercise;
     private String            medication;
     private String            sodium;
     private String            calories;
+    private Date              createDate;
+    private double            overallScore;
 
     public long getReportId() {
         return reportId;
@@ -25,6 +30,14 @@ public class Report extends BaseObject {
 
     public void setReportId(long reportId) {
         this.reportId = reportId;
+    }
+
+    public long getPatientId() {
+        return patientId;
+    }
+
+    public void setPatientId(long patientId) {
+        this.patientId = patientId;
     }
 
     public String getCholestrol() {
@@ -43,12 +56,12 @@ public class Report extends BaseObject {
         this.fat = fat;
     }
 
-    public String getExcercise() {
-        return excercise;
+    public String getExercise() {
+        return exercise;
     }
 
-    public void setExcercise(String excercise) {
-        this.excercise = excercise;
+    public void setExercise(String exercise) {
+        this.exercise = exercise;
     }
 
     public String getMedication() {
@@ -75,12 +88,29 @@ public class Report extends BaseObject {
         this.calories = calories;
     }
 
+    public Date getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(Date createDate) {
+        this.createDate = createDate;
+    }
+
+    public double getOverallScore() {
+        return overallScore;
+    }
+
+    public void setOverallScore(double overallScore) {
+        this.overallScore = overallScore;
+    }
+
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
-        builder.append("Report [reportId=").append(reportId).append(", cholestrol=").append(cholestrol).append(", fat=").append(fat)
-                .append(", excercise=").append(excercise).append(", medication=").append(medication).append(", sodium=").append(sodium)
-                .append(", calories=").append(calories).append("]");
+        builder.append("Report [reportId=").append(reportId).append(", patientId=").append(patientId).append(", cholestrol=").append(cholestrol)
+                .append(", fat=").append(fat).append(", exercise=").append(exercise).append(", medication=").append(medication).append(", sodium=")
+                .append(sodium).append(", calories=").append(calories).append(", createDate=").append(createDate).append(", overallScore=")
+                .append(overallScore).append("]");
         return builder.toString();
     }
 

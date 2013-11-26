@@ -2,22 +2,22 @@ package com.pioneers.vcrn.datastore;
 
 import org.apache.ibatis.session.SqlSession;
 
-import com.pioneers.vcrn.data.Notification;
+import com.pioneers.vcrn.data.Report;
 import com.pioneers.vcrn.datastore.helper.SqlHelper;
 
 /**
  * 
  * @author Aneesh Garg
- * @since Nov 22, 2013
+ * @since Nov 26, 2013
  */
-public class NotificationDatastore {
+public class ReportDatastore {
 
-    public void insertNotification(Notification notification) throws Exception {
-
+    public void insertReport(Report report) throws Exception {
         SqlSession session = null;
+
         try {
             session = SqlHelper.getSession();
-            session.insert("InsertNotification", notification);
+            session.insert("InsertReport", report);
             session.commit();
         } catch (Exception e) {
             e.printStackTrace();
