@@ -1,7 +1,6 @@
 package com.pioneers.vcrn.webviews.servlets;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -10,8 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.pioneers.vcrn.data.Account;
-import com.pioneers.vcrn.data.Doctor;
-import com.pioneers.vcrn.data.Notification;
+import com.pioneers.vcrn.data.MedicalProfessional;
 import com.pioneers.vcrn.data.Patient;
 import com.pioneers.vcrn.request.LoginRequest;
 import com.pioneers.vcrn.webviews.helper.RestHelper;
@@ -45,11 +43,11 @@ public class HomeServlet extends HttpServlet {
         	HttpSession session = request.getSession();
         	
         	if("patient".equals(account.getRole().trim())){
-				//Patient patient = (Patient) account;
+				Patient patient = (Patient) account;
 				session.setAttribute("accountBean", account);
 			}
         	else if("doctor".equals(account.getRole().trim())){
-				//Doctor doctor = (Doctor) account;
+        		MedicalProfessional doctor = (MedicalProfessional) account;
 				session.setAttribute("accountBean", account);
 			} 
     		   		
