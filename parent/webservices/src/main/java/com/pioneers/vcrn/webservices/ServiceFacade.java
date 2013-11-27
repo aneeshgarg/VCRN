@@ -11,6 +11,7 @@ import javax.ws.rs.core.MediaType;
 import com.pioneers.vcrn.data.Account;
 import com.pioneers.vcrn.data.MedicalProfessional;
 import com.pioneers.vcrn.data.Patient;
+import com.pioneers.vcrn.data.RehabPlan;
 import com.pioneers.vcrn.request.LoginRequest;
 import com.pioneers.vcrn.request.RehabLogRequest;
 import com.pioneers.vcrn.response.RehabTemplateResponse;
@@ -54,6 +55,21 @@ public class ServiceFacade {
     @Consumes(MediaType.APPLICATION_JSON)
     public void  saveRehabLog(RehabLogRequest logRequest) throws Exception {
         new CoreService().saveLog(logRequest);
+    }
+    
+    @POST
+    @Path("/saverehabplan")
+    @Consumes(MediaType.APPLICATION_JSON)    
+    public void saveRehabPlan(RehabPlan plan) throws Exception {
+        new CoreService().saveRehabPlan(plan);
+    }
+    
+    @POST
+    @Path("/updaterehabplan")
+    @Consumes(MediaType.APPLICATION_JSON)    
+    public void updateRehabPlan(RehabPlan plan) throws Exception {
+        new CoreService().updateRehabPlan(plan);
+        
     }
 
 }

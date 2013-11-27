@@ -12,6 +12,7 @@ public class Exercise extends BaseObject {
     private static final long serialVersionUID = -285837474314418679L;
 
     private long              exerciseId;
+    private long              planId;
     private String            exerciseName;
     private String            timeToSpend;
     private String            repetitions;
@@ -23,6 +24,14 @@ public class Exercise extends BaseObject {
 
     public void setExerciseId(long exerciseId) {
         this.exerciseId = exerciseId;
+    }
+
+    public long getPlanId() {
+        return planId;
+    }
+
+    public void setPlanId(long planId) {
+        this.planId = planId;
     }
 
     public String getExerciseName() {

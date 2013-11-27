@@ -15,6 +15,8 @@ public class RehabPlan extends BaseObject {
     private static final long serialVersionUID = -6712901536778712909L;
 
     private long              planId;
+    private long              patientId;
+    private long              doctorId;
     private long              templateId;
     private double            sodiumGoal;
     private double            calorieGoal;
@@ -35,6 +37,22 @@ public class RehabPlan extends BaseObject {
 
     public void setPlanId(long planId) {
         this.planId = planId;
+    }
+
+    public long getPatientId() {
+        return patientId;
+    }
+
+    public void setPatientId(long patientId) {
+        this.patientId = patientId;
+    }
+
+    public long getDoctorId() {
+        return doctorId;
+    }
+
+    public void setDoctorId(long doctorId) {
+        this.doctorId = doctorId;
     }
 
     public long getTemplateId() {
@@ -144,11 +162,12 @@ public class RehabPlan extends BaseObject {
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
-        builder.append("RehabPlan [planId=").append(planId).append(", templateId=").append(templateId).append(", sodiumGoal=").append(sodiumGoal)
-                .append(", calorieGoal=").append(calorieGoal).append(", createDate=").append(createDate).append(", updateDate=").append(updateDate)
-                .append(", lap=").append(lap).append(", hap=").append(hap).append(", cholestrolGoal=").append(cholestrolGoal).append(", habp=")
-                .append(habp).append(", labp=").append(labp).append(", bmiGoal=").append(bmiGoal).append(", exerciseList=").append(exerciseList)
-                .append(", medicationList=").append(medicationList).append("]");
+        builder.append("RehabPlan [planId=").append(planId).append(", patientId=").append(patientId).append(", doctorId=").append(doctorId)
+                .append(", templateId=").append(templateId).append(", sodiumGoal=").append(sodiumGoal).append(", calorieGoal=").append(calorieGoal)
+                .append(", createDate=").append(createDate).append(", updateDate=").append(updateDate).append(", lap=").append(lap).append(", hap=")
+                .append(hap).append(", cholestrolGoal=").append(cholestrolGoal).append(", habp=").append(habp).append(", labp=").append(labp)
+                .append(", bmiGoal=").append(bmiGoal).append(", exerciseList=").append(exerciseList).append(", medicationList=")
+                .append(medicationList).append("]");
         return builder.toString();
     }
 
