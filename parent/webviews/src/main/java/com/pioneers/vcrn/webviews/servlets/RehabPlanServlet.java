@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.pioneers.vcrn.data.MedicalProfessional;
+import com.pioneers.vcrn.data.RehabTemplate;
 import com.pioneers.vcrn.response.RehabTemplateResponse;
 import com.pioneers.vcrn.webviews.helper.RestHelper;
 
@@ -26,28 +26,51 @@ public class RehabPlanServlet extends HttpServlet {
 
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		RehabTemplateResponse templates = new RehabTemplateResponse();
-		
-		try {
-			templates = (RehabTemplateResponse) new RestHelper().callRestService("/facade/getrehabtemplates", "GET", null, RehabTemplateResponse.class);
-            if (templates != null)
-                System.out.println(templates.toString());
-            else{
-            	request.setAttribute("errormessage", "Unable to get Rehab Plan Templates!");
-            	request.getRequestDispatcher("CreateRehabPlan.jsp").forward(request, response);
-                return;
-            }
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            e.printStackTrace();
-        }
-		
-		HttpSession session = request.getSession();
-		session.setAttribute("templateBean", templates);
-		
-		request.getRequestDispatcher("CreateRehabPlan.jsp").forward(request, response);
-        return;
+		System.out.println("hello");
+		System.out.println(request.getParameter("newPlan"));
+	
+			if(request.getParameter("newPlan") == null){	
+				if (request.getParameter("selectedTemplate") == null){
+					
+						RehabTemplateResponse templates = new RehabTemplateResponse();
+						
+						try {
+							templates = (RehabTemplateResponse) new RestHelper().callRestService("/facade/getrehabtemplates", "GET", null, RehabTemplateResponse.class);
+				            if (templates != null)
+				                System.out.println(templates.toString());
+				            else{
+				            	request.setAttribute("errormessage", "Unable to get Rehab Plan Templates!");
+				            	request.getRequestDispatcher("CreateRehabPlan.jsp").forward(request, response);
+				                return;
+				            }
+				        } catch (Exception e) {
+				            System.out.println(e.getMessage());
+				            e.printStackTrace();
+				        }
+						
+						HttpSession session = request.getSession();
+						session.setAttribute("templateBean", templates);
+						System.out.println("hello firsts");
+						request.getRequestDispatcher("CreateRehabPlan.jsp").forward(request, response);
+				        return;
+				}
+				else{
+					System.out.println("hello insedie");
+					String myObjectid = request.getParameter("selectedTemplate");
+					RehabTemplateResponse templates = (RehabTemplateResponse) request.getSession().getAttribute("templateBean");
+					for(RehabTemplate template:templates.getRehabTemplateList()){
+						if(template.getPlanName().equals(myObjectid)){
+							request.setAttribute("plantemplate", template);	
+						}	
+					}			
+					request.getRequestDispatcher("CreateRehabPlan.jsp").forward(request, response);
+			        return;
+				}
+			}
+			else{
+				System.out.println("hello");
+				System.out.println(request.getParameter("newPlan"));
+			}
 	}
 
 }
