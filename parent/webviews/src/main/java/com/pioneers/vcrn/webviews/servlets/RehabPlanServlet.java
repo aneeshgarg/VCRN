@@ -27,63 +27,95 @@ public class RehabPlanServlet extends HttpServlet {
 		doPost(request, response);
 	}
 
+	protected Boolean checkPatientsWNPlans(MedicalProfessional currDoctor){
+		for(int i=0;i<currDoctor.getPatientList().size();i++){
+			if(currDoctor.getPatientList().get(i).getRehabPlan()== null){
+				return true;
+			}
+		}
+		return false;
+	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 			
-			if(request.getAttribute("newPlan") == null){	
-				if (request.getParameter("selectedTemplate") == null){
-					
-						RehabTemplateResponse templates = new RehabTemplateResponse();
+		Boolean patientsNoPlan = false;
+		HttpSession session = request.getSession();
+		MedicalProfessional currDoctor = (MedicalProfessional) session.getAttribute("accountBean");
+		
+		patientsNoPlan = checkPatientsWNPlans(currDoctor);
+			
+			if(patientsNoPlan){				
+				System.out.println("There are patients with no plans");				
+				if(request.getAttribute("newPlan") == null){					
+					System.out.println("No new plan sent");					
+					if (request.getParameter("selectedTemplate") == null){
+						System.out.println("A template is not selected");
+							RehabTemplateResponse templates = new RehabTemplateResponse();
+							
+							try {
+								templates = (RehabTemplateResponse) new RestHelper().callRestService("/facade/getrehabtemplates", "GET", null, RehabTemplateResponse.class);
+					            if (templates != null)
+					                System.out.println(templates.toString());
+					            else{
+					            	request.setAttribute("errormessage", "Unable to get Rehab Plan Templates!");
+					            	request.getRequestDispatcher("CreateRehabPlan.jsp").forward(request, response);
+					                return;
+					            }
+					        } catch (Exception e) {
+					            System.out.println(e.getMessage());
+					            e.printStackTrace();
+					        }
+							
+							session.setAttribute("templateBean", templates);
+							//System.out.println("hello firsts");
+							request.getRequestDispatcher("CreateRehabPlan.jsp").forward(request, response);
+					        return;
 						
-						try {
-							templates = (RehabTemplateResponse) new RestHelper().callRestService("/facade/getrehabtemplates", "GET", null, RehabTemplateResponse.class);
-				            if (templates != null)
-				                System.out.println(templates.toString());
-				            else{
-				            	request.setAttribute("errormessage", "Unable to get Rehab Plan Templates!");
-				            	request.getRequestDispatcher("CreateRehabPlan.jsp").forward(request, response);
-				                return;
-				            }
-				        } catch (Exception e) {
-				            System.out.println(e.getMessage());
-				            e.printStackTrace();
-				        }
-						
-						HttpSession session = request.getSession();
-						session.setAttribute("templateBean", templates);
-						System.out.println("hello firsts");
+					}	
+					else if (request.getParameter("selectedTemplate") != null){
+						System.out.println("A template is selected");
+						String myObjectid = request.getParameter("selectedTemplate");
+						RehabTemplateResponse templates = (RehabTemplateResponse) request.getSession().getAttribute("templateBean");
+						for(RehabTemplate template:templates.getRehabTemplateList()){
+							if(template.getPlanName().equals(myObjectid)){
+								request.setAttribute("plantemplate", template);	
+							}	
+						}			
 						request.getRequestDispatcher("CreateRehabPlan.jsp").forward(request, response);
 				        return;
+					}
 				}
-				else{
-					System.out.println("hello insedie");
-					String myObjectid = request.getParameter("selectedTemplate");
-					RehabTemplateResponse templates = (RehabTemplateResponse) request.getSession().getAttribute("templateBean");
-					for(RehabTemplate template:templates.getRehabTemplateList()){
-						if(template.getPlanName().equals(myObjectid)){
-							request.setAttribute("plantemplate", template);	
-						}	
-					}			
-					request.getRequestDispatcher("CreateRehabPlan.jsp").forward(request, response);
+				else if(request.getAttribute("newPlan") != null){
+					System.out.println("A new Plan is sent to be saved");
+					RehabPlan newPlan = (RehabPlan) request.getAttribute("newPlan");
+					System.out.println(request.getAttribute("newPlan"));
+					//System.out.println(rehabreq.getPlan());
+					try {
+	        			RestHelper savePlan = new RestHelper();
+	        			savePlan.callRestService("/facade/saverehabplan", "POST", newPlan, RehabPlan.class);
+			        } catch (Exception e) {
+			            System.out.println(e.getMessage());
+			            e.printStackTrace();
+			        }
+					
+					try {
+	        			currDoctor = (MedicalProfessional) new RestHelper().callRestService("/facade/getmpinfo/"+currDoctor.getAccountId(), "GET", null, MedicalProfessional.class);
+			        } catch (Exception e) {
+			            System.out.println(e.getMessage());
+			            e.printStackTrace();
+			        }
+	        		
+					session.setAttribute("accountBean", currDoctor);
+					request.setAttribute("message", "Plan Created! Continue to Modify Plan!");
+					request.getRequestDispatcher("ManageRehabPlan.jsp").forward(request, response);
 			        return;
 				}
 			}
-			else{
-				HttpSession session = request.getSession();
-				RehabLogRequest rehabreq = new RehabLogRequest();
-				MedicalProfessional docAccount = (MedicalProfessional) session.getAttribute("accountBean");
-				rehabreq.setDoctorId(docAccount.getAccountId());
-				rehabreq.setPlan((RehabPlan) request.getAttribute("newPlan"));
-				System.out.println(request.getAttribute("newPlan"));
-				System.out.println(rehabreq.getPlan());
-				try {
-        			RestHelper savePlan = new RestHelper();
-        			savePlan.callRestService("/facade/savelog", "PUT", rehabreq, RehabLogRequest.class);
-		        } catch (Exception e) {
-		            System.out.println(e.getMessage());
-		            e.printStackTrace();
-		        }
-		
+			else if(!patientsNoPlan){
+				System.out.println("no patients with no plans");
+				session.setAttribute("message", "No Patients without Rehab Plans!!!");
+				request.getRequestDispatcher("CreateRehabPlan.jsp").forward(request, response);
+		        return;
 			}
 	}
 

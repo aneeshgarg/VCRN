@@ -57,7 +57,7 @@
 						<table style="width:100%">
 								<tr>
 									<td ><a class="aheader" href="PatientList.jsp">View Patient List</a></td>
-									<td ><a class="aheader" href="rehabplan">Create Rehab Plan</a></td>
+									<td ><a class="aheader" href="rehabplan">Rehab Plans</a></td>
 								</tr></table>
 					</div>
 					</div>

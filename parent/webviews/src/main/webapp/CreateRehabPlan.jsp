@@ -13,11 +13,13 @@
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 	<script type="text/javascript">
 	function addMedicine(){
-		var newrow = $('<tr><td style="text-align: center; width: 200px;"><input type="text" style="width: 150px" /></td><td style="text-align: center; width: 200px;"><input type="text" style="width: 150px" /></td><td style="text-align: center; width: 200px;"><input type="text" style="width: 150px" /></td><td style="text-align: center; width: 200px;"><input type="text" style="width: 150px" /></td></tr>');
-		$("#medicine").append($(newrow).html());
+		var rowCount = $('#medicine tr').length;
+		var newrow = $('<tr><td style="text-align: center; width: 200px;"><input name="medicineName'+rowCount+'" type="text" style="width: 150px" /></td><td style="text-align: center; width: 200px;"><input name="timeToTake'+rowCount+'" type="text" style="width: 150px" /></td><td style="text-align: center; width: 200px;"><input name="dosage'+rowCount+'" type="text" style="width: 150px" /></td><td style="text-align: center; width: 200px;"><input name="type'+rowCount+'" type="text" style="width: 150px" /></td></tr>');
+		$("#medicine").append($(newrow));
 	}
 	function addExercise(){
-		var newrow = $('<tr><td style="text-align: center; width: 200px;"><input type="text" style="width: 150px" /></td><td style="text-align: center; width: 200px;"><input type="text" style="width: 150px" /></td><td style="text-align: center; width: 200px;"><input type="text" style="width: 150px" /></td><td style="text-align: center; width: 200px;"><input type="text" style="width: 150px" /></td></tr>');
+		var rowCount = $('#exercise tr').length;
+		var newrow = $('<tr><td style="text-align: center; width: 200px;"><input name="excerciseName'+rowCount+'" type="text" style="width: 150px" /></td><td style="text-align: center; width: 200px;"><input name="timeToSpend'+rowCount+' type="text" style="width: 150px" /></td><td style="text-align: center; width: 200px;"><input name="weight'+rowCount+'" type="text" style="width: 150px" /></td><td style="text-align: center; width: 200px;"><input name="repetitions'+rowCount+'" type="text" style="width: 150px" /></td></tr>');
 		$("#exercise").append($(newrow));
 	}
 	
@@ -45,22 +47,39 @@
 			<%}%>
 		<center>
 		<div id="contentpage" class="contentpage">
-			
+		
+			<c:if test="${message == 'No Patients without Rehab Plans!!!'}">
+				<center>
+						 <div class="wideCenter">
+					        <h3><strong >${message}</strong></h3>
+			    		</div>
+			    </center>
+			</c:if>
+			<c:if test="${message != 'No Patients without Rehab Plans!!!'}">
 			<form action="rehabplan" method="post">
 			  Select Rehab Plan Template To Use: 	<select id="templt" class="firstletter" name="selectedTemplate" onChange="this.form.submit()">
 			  											<option value="">Select Template</option>
 			  											<c:forEach var="template" items="${templateBean.rehabTemplateList}">
 							           					 <option value="${template.planName}" ${template.planName==plantemplate.planName?'selected':'' }>${template.planName}</option>
 							      						 </c:forEach>
-													  </select>
-
+													  </select>			  
 			 </form>
 			 <form action="SavePlan.jsp" method="post">
 			    <div class="wideCenter">
-			        <h3>Create Rehab Plan For Patient John Smith</h3>
-			
+			    	<h3>Create Rehab Plan For Patient ${patient.firstName} ${patient.lastName}</h3>
+					<center>Select Patient for Rehab Plan: 	
+					<select id="patientId" class="firstletter" name="patientId">
+								<option value="">Select Patient</option>
+								<c:forEach var="patient" items="${accountBean.patientList}">
+									<c:if test="${patient.rehabPlan ==null}">
+          					 			<option value="${patient.accountId}">${patient.firstName} ${patient.lastName}</option>
+          					 		</c:if>          					 	  
+     						 </c:forEach>
+					  </select></center>
+					 			
 			        <div style="float: left; text-align: right; width: 50%">
 			        	<center>
+
 			            <table >
 			                <tr>
 			                    <td style="text-align:center"><strong>Vitals</strong></td>
@@ -121,29 +140,29 @@
 			                    <th style="text-align: center;">Repetitions</th>
 			                </tr>
 			                <c:if test="${plantemplate.exerciseList!=null}">
-			                <c:forEach var="exercise" items="${plantemplate.exerciseList}" >
+			                <c:forEach var="exercise" items="${plantemplate.exerciseList}" varStatus="status" >
 			                <tr>
 			                    <td style="text-align: center; width: 200px;">
-			                        <input name="excerciseName" type="text" style="width: 150px" value="${exercise.exerciseName}"/></td>
+			                        <input name="excerciseName${status.count}" type="text" style="width: 150px" value="${exercise.exerciseName}"/></td>
 			                    <td style="text-align: center; width: 200px;">
-			                        <input name="timeToSpend" type="text" style="width: 150px" value="${exercise.timeToSpend}"/></td>
+			                        <input name="timeToSpend${status.count}" type="text" style="width: 150px" value="${exercise.timeToSpend}"/></td>
 			                    <td style="text-align: center; width: 200px;">
-			                        <input name="weight" type="text" style="width: 150px" value="${exercise.weight}"/></td>
+			                        <input name="weight${status.count}" type="text" style="width: 150px" value="${exercise.weight}"/></td>
 			                    <td style="text-align: center; width: 200px;">
-			                        <input name="repetitions" type="text" style="width: 150px" value="${exercise.repetitions}"/></td>
+			                        <input name="repetitions${status.count}" type="text" style="width: 150px" value="${exercise.repetitions}"/></td>
 			                </tr>
 			                </c:forEach>
 			                </c:if>
 			                <c:if test="${plantemplate.exerciseList==null}">
 			                	<tr>
 			                		<td style="text-align: center; width: 200px;">
-			                		<input name="excerciseName" type="text" style="width: 150px" /></td>
+			                		<input name="excerciseName1" type="text" style="width: 150px" /></td>
 			                		<td style="text-align: center; width: 200px;">
-			                		<input name="timeToSpend" type="text" style="width: 150px" /></td>
+			                		<input name="timeToSpend1" type="text" style="width: 150px" /></td>
 			                		<td style="text-align: center; width: 200px;">
-			                		<input name="weight" type="text" style="width: 150px" /></td>
+			                		<input name="weight1" type="text" style="width: 150px" /></td>
 			                		<td style="text-align: center; width: 200px;">
-			                		<input name="repetitions" type="text" style="width: 150px" /></td></tr>
+			                		<input name="repetitions1" type="text" style="width: 150px" /></td></tr>
 			                </c:if>
 			            </table></center>
 			            <input type="button" value="Add New Exercise" onClick="addExercise()" />
@@ -160,29 +179,29 @@
 			                    <th style="text-align: center;">Type</th>
 			                </tr>
 			                <c:if test="${plantemplate.medicationList!=null}">
-			                <c:forEach var="medic" items="${plantemplate.medicationList}">
+			                <c:forEach var="medic" items="${plantemplate.medicationList}" varStatus="status">
 			                <tr>
 			                    <td style="text-align: center; width: 200px;">
-			                        <input name="medicineName" type="text" style="width: 150px" value="${medic.medicineName}"/></td>
+			                        <input name="medicineName${status.count}" type="text" style="width: 150px" value="${medic.medicineName}"/></td>
 			                    <td style="text-align: center; width: 200px;">
-			                        <input name="timeToTake" type="text" style="width: 150px" value="${medic.timeToTake}"/></td>
+			                        <input name="timeToTake${status.count}" type="text" style="width: 150px" value="${medic.timeToTake}"/></td>
 			                    <td style="text-align: center; width: 200px;">
-			                        <input name="dosage" type="text" style="width: 150px" value="${medic.dosage}"/></td>
+			                        <input name="dosage${status.count}" type="text" style="width: 150px" value="${medic.dosage}"/></td>
 			                    <td style="text-align: center; width: 200px;">
-			                        <input name="type" type="text" style="width: 150px" value="${medic.type}"/></td>
+			                        <input name="type${status.count}" type="text" style="width: 150px" value="${medic.type}"/></td>
 			                </tr>
 			                </c:forEach>
 			                </c:if>
 			                <c:if test="${plantemplate.medicationList==null}">
 			               		 <tr>
 			               		 	<td style="text-align: center; width: 200px;">
-			               		 	<input name="medicineName" type="text" style="width: 150px" /></td>
+			               		 	<input name="medicineName1" type="text" style="width: 150px" /></td>
 			               		 	<td style="text-align: center; width: 200px;">
-			               		 	<input name="timeToTake" type="text" style="width: 150px" /></td>
+			               		 	<input name="timeToTake1" type="text" style="width: 150px" /></td>
 			               		 	<td style="text-align: center; width: 200px;">
-			               		 	<input name="dosage" type="text" style="width: 150px" /></td>
+			               		 	<input name="dosage1" type="text" style="width: 150px" /></td>
 			               		 	<td style="text-align: center; width: 200px;">
-			               		 	<input name="type" type="text" style="width: 150px" /></td>
+			               		 	<input name="type1" type="text" style="width: 150px" /></td>
 			               		 </tr>
 			                </c:if>
 			            </table></center>
@@ -190,13 +209,14 @@
 			        </div>
 			
 			        <br />
-			        	
+			        <input type="hidden" name="doctorId" value="${accountBean.accountId}">	
 			        <input type="submit" value="Save Plan" />
 				
 			    </div>
 			  </form> 
+			  </c:if>
 		</div></center>
-	
+		
 		<div class="footer"><p>@ 2013 - Virtual Cardiac Rehabilitation Nurse</p></div>	
 	</div>
 </body>

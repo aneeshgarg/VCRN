@@ -12,7 +12,14 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 	<link rel="stylesheet" href="css/vcrn.css" type="text/css" />
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 	<title>Virtual Cardiac Rehabilitation Nurse - Login</title>
+	<script type="text/javascript">
+		function selectPatient() {
+			var pat = $('#patientRadio');
+			<% request.setAttribute("selectedPatient","$('#patientRadio').val");%>
+		}
+	</script>
 </head>
 
 <body class="page">
@@ -38,14 +45,26 @@
 		    <table class="wideCenter">
 		    	<c:forEach var="ptlist" items="${accountBean.patientList}">							        
 					            <tr>
-					                
 					                    <td class="firstletter">${ptlist.getFirstName()} ${ptlist.lastName}</td>
 		            					<td><a href="ManageRehabPlan.jsp">Manage Rehab Plan</a></td>
-		            					<td><a href="ReportCard.jsp">View Report Card</a></td>
-					                
+		            					<td><a href="ReportCard.jsp?patient=${ptlist}">View Report Card</a></td>					                
 					            </tr>
 				</c:forEach>		
 		    </table>
+		    <center>
+		    <form action ="ManageRehabPlan.jsp" method="post">
+		   		 <table>
+		    		<c:forEach var="ptlist" items="${accountBean.patientList}" >	
+		    			<tr>
+		    				<td><input type="radio" name="patientRadio" id="patientRadio" value="${ptlist}"/></td>
+		    				<td class="firstletter">${ptlist.getFirstName()} ${ptlist.lastName}</td>
+		    			</tr>
+		   			 </c:forEach>
+		   		 </table>
+		   		 <input type="submit" name="updatepage">Manage Rehab Plan</input>
+		   		 <a href="ReportCard.jsp">View Report Card</a>
+		    </form>
+		    </center>
 		        </div>
 		</div></center>
 	
