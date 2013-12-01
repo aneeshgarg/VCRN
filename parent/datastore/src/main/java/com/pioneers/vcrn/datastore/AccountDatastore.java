@@ -16,7 +16,25 @@ public class AccountDatastore {
         
         try {
             session = SqlHelper.getSession();
-            account = (Account) session.selectOne("Login", request);
+            account = (Account) session.selectOne("GetAccountInfoByUsernamePassword", request);
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw e;
+        } finally {
+            if (session != null)
+                session.close();
+        } 
+        return account;
+    }
+
+    public Account getAccountInfo(long accountId) throws Exception {
+        Account account = null;
+        SqlSession session = null;
+        
+        try {
+            session = SqlHelper.getSession();
+            account = (Account) session.selectOne("GetAccountInfoById", accountId);
             
         } catch (Exception e) {
             e.printStackTrace();

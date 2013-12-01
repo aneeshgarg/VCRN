@@ -14,6 +14,11 @@ public class AccountService {
         return account;
     }
     
+    public Account getAccountInfo(long accountId) throws Exception {
+        System.out.println("getAccountInfo::: "+accountId);
+        return new AccountDatastore().getAccountInfo(accountId);
+    }
+    
     public MedicalProfessional getMPInfo(long accountId) throws Exception {
         System.out.println("getMPInfo::: "+accountId);
         return new AccountDatastore().getMedicalProfessionalInfo(accountId);
