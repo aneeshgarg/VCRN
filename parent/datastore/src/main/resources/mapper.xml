@@ -3,256 +3,302 @@
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.pioneers.vcrn.datastore.datamap">
-    <select id="Login" parameterType="LoginRequest" resultMap="AccountMap">
-        select * from account a
-        left outer join personal_info p on a.acct_id = p.acct_id
-        <where>
-             a.username = #{username} and
-             a.password = #{password}            
-        </where>        	
-    </select>
-    <select id="GetMedicalProfessionalAccount" parameterType="long" resultMap="MPAccountMap">
-        select * from account a
-        left outer join personal_info p on a.acct_id = p.acct_id
-        left outer join notification n on a.acct_id = n.doctor_id
-        where a.acct_id = #{param} order by n.create_time desc
-    </select>
-    <select id="GetPatientListForMP" parameterType="long" resultMap="PatientMapForMPMap">
-        select * from account a
-        left outer join personal_info p on a.acct_id = p.acct_id
-        left outer join patient_health_data h on h.acct_id = a.acct_id
-        where a.doctor_id = #{param}
-    </select>
-    <select id="GetPatientAccount" parameterType="long" resultMap="PatientAccountMap">
-        select * from account a
-        left outer join personal_info p on a.acct_id = p.acct_id
-        left outer join notification n on a.acct_id = n.patient_id
-        left outer join patient_health_data h on h.acct_id = a.acct_id
-        where a.acct_id = #{param} order by n.create_time desc
-    </select>
-    <select id="GetMedicalProfessionalForPatient" resultMap="MPMapForPatient">
-        select * from account a
-        left outer join personal_info p on a.acct_id = p.acct_id
-        where a.acct_id = #{param}
-    </select>
-    <select id="GetRehabPlan" parameterType="long" resultMap="RehabPlanMap">
-        select * from rehab_plan r
-        left outer join exercise e on e.plan_id = r.plan_id
-        left outer join medication m on m.plan_id = r.plan_id
-        where r.patient_id = #{param}
-    </select>
-    <select id="GetRehabTemplates" resultMap="RehabTemplateMap">
-        select * from rehabplantemplate rpt
-        left outer join rehab_plan r on r.plan_id = rpt.plan_id
-        left outer join exercise e on e.plan_id = r.plan_id
-        left outer join medication m on m.plan_id = r.plan_id
-    </select>
-    <select id="GetPatientReport" parameterType="long" resultMap="ReportMap">
-        select * from report
-        where patient_id=#{param}
-        order by create_date desc limit 1
-    </select>
-    
-    <insert id="InsertRehabLog" parameterType="RehabLog" useGeneratedKeys="true">
-        insert into rehab_log
-        (acct_id,create_date,pulse,blood_pressure,weight,medicine_taken,exercise_done)
-        values
-        (#{patientId},#{createDate},#{pulse},#{bloodPressure},#{weight},#{medicineTaken},#{exerciseDone})
-		 <selectKey keyProperty="logId" resultType="long" order="AFTER">
-            select last_insert_id();
-        </selectKey>
-    </insert>
-    <insert id="InsertDiet" parameterType="Diet" useGeneratedKeys="true">
-        insert into diet_table
-        (log_id,calories,sodium,food_name,fat,cholestrol)
-        values
-        (#{logId},#{calories},#{sodium},#{foodName},#{fat},#{cholestrol})
-    </insert>
-    <insert id="InsertNotification" parameterType="Notification" useGeneratedKeys="true">
-        insert into notification
-        (patient_id,doctor_id,message,subject,create_time)
-        values
-        (#{patientId},#{doctorId},#{message},#{subject},#{createTime})
-    </insert>
-    <insert id="InsertReport" parameterType="Report">
-        insert into report
-        (patient_id,cholestrol,fat,exercise,medication,sodium,calories,create_date,overall_score)
-        values
-        (#{patientId},#{cholestrol},#{fat},#{excercise},#{medication},#{sodium},#{calories},#{createDate},#{overallScore})
-    </insert>
-    
-    <insert id="InsertRehabPlan" parameterType="RehabPlan" useGeneratedKeys="true">
-        insert into rehab_plan
-        (sodium_goal,calorie_goal,create_date,update_date,lap,hap,cholestrol_goal,habp,labp,bmi_goal,template_id,patient_id,doctor_id)
-        values
-        (#{sodiumGoal},#{calorieGoal},#{createDate},#{updateDate},#{lap},#{hap},#{cholestrolGoal},#{habp},#{labp},#{bmiGoal},#{templateId},#{patientId},#{doctorId})
-		 <selectKey keyProperty="planId" resultType="long" order="AFTER">
-            select last_insert_id();
-        </selectKey>
-    </insert>
-    <insert id="InsertExercise" parameterType="Exercise" useGeneratedKeys="true">
-        insert into exercise
-        (plan_id,exercise_name,time_to_spend,repetitions,weight)
-        values
-        (#{planId},#{exerciseName},#{timeToSpend},#{repetitions},#{weight})
-    </insert>
-    <insert id="InsertMedication" parameterType="Medication" useGeneratedKeys="true">
-        insert into medication
-        (plan_id,time_to_take,medicine_name,dosage,type)
-        values
-        (#{planId},#{timeToTake},#{medicineName},#{dosage},#{type})
-    </insert>
-    
-    <update id="UpdateRehabPlan" parameterType="RehabLog">
-        update rehab_plan
-        set 
-        sodium_goal = #{sodiumGoal},
-        calorie_goal = #{calorieGoal},
-        create_date = #{createDate},
-        update_date = #{updateDate},
-        lap = #{lap},
-        hap = #{hap},
-        cholestrol_goal = #{cholestrolGoal},
-        habp = #{habp},
-        labp = #{labp},
-        bmi_goal = #{bmiGoal},
-        template_id = #{templateId},
-        patient_id = #{patientId},
-        doctor_id = #{doctorId}
-        where
-        plan_id = #{planId}
-    </update>
-    <update id="UpdateExercise" parameterType="Exercise">
-        update exercise
-        set
-        plan_id = #{planId},
-        exercise_name = #{exerciseName},
-        time_to_spend = #{timeToSpend},
-        repetitions = #{repetitions},
-        weight = #{weight}
-        where
-        exercise_id = #{exerciseId}
-    </update>
-    <update id="UpdateMedication" parameterType="Medication">
-        update medication
-        set
-        plan_id = #{planId},
-        time_to_take = #{timeToTake},
-        medicine_name = #{medicineName},
-        dosage = #{dosage},
-        type = #{type}
-        where
-        medication_id = #{medicationId}
-    </update>
-    
-    <resultMap type="PersonInfo" id="PersonInfoMap">
-        <result property="firstName" column="first_name"/>
-        <result property="lastName" column="last_name"/>
-        <result property="email" column="email"/>
-        <result property="gender" column="gender"/>
-        <result property="dob" column="dob"/>        
-    </resultMap>
-    
-    <resultMap type="Account" id="AccountMap" extends="PersonInfoMap">
-        <result property="accountId" column="acct_id"/>
-        <result property="username" column="username"/>
-        <result property="active" javaType="boolean" column="status"/>
-        <result property="role" column="role"/>
-        <collection property="notificationList" resultMap="NotificationMap"/>
-    </resultMap>
-    
-    <resultMap type="MedicalProfessional" id="MPAccountMap" extends="AccountMap">
-        <collection property="patientList" column="acct_id" select="GetPatientListForMP"/>
-    </resultMap>
-    
-    <resultMap type="Patient" id="PatientAccountMap" extends="AccountMap">
-        <association property="healthData" resultMap="HealthDataMap"/> 
-        <association property="rehabPlan" column="acct_id" select="GetRehabPlan"/>
-        <association property="lastReport" column="acct_id" select="GetPatientReport"/>
-        <association property="doctor" column="doctor_id" select="GetMedicalProfessionalForPatient"/>       
-    </resultMap>
-    
-    <resultMap type="Patient" id="PatientMapForMPMap" extends="AccountMap">
-        <association property="healthData" resultMap="HealthDataMap"/>
-        <association property="rehabPlan" column="acct_id" select="GetRehabPlan"/>
-        <association property="lastReport" column="acct_id" select="GetPatientReport"/>
-    </resultMap>
-    <resultMap type="MedicalProfessional" id="MPMapForPatient" extends="AccountMap">
-    </resultMap>
-    
-    <resultMap type="HealthData" id="HealthDataMap">
-        <result property="fileId" column="file_id"/>
-        <result property="bloodPressure" column="blood_pressure"/>
-        <result property="pulse" column="pulse"/>
-        <result property="calorieIndex" column="calorie_index"/>
-        <result property="sodiumConsumption" column="sodium_consumption"/>
-        <result property="bmiIndex" column="bmi_index"/>
-        <result property="cholestrolIndex" column="cholestrol_index"/>
-        <result property="weight" column="weight"/>
-        <result property="height" column="height"/>        
-    </resultMap>
-    
-    <resultMap type="Notification" id="NotificationMap">        
-        <result property="patientId" column="patient_id"/>
-        <result property="doctorId" column="doctor_id"/>
-        <result property="message" column="message"/>
-        <result property="subject" column="subject"/>
-        <result property="createTime" javaType="java.util.Date" column="create_time"/>
-    </resultMap>
-    <resultMap type="RehabPlan" id="RehabPlanMap">
-        <result property="planId" column="plan_id"/>
-        <result property="patientId" column="patient_id"/>
-        <result property="doctorId" column="doctor_id"/>
-        <result property="templateId" column="template_id"/>
-        <result property="sodiumGoal" column="sodium_goal"/>
-        <result property="calorieGoal" column="calorie_goal"/>
-        <result property="createDate" javaType="java.util.Date" column="create_date"/>
-        <result property="updateDate" javaType="java.util.Date" column="update_date"/>
-        <result property="lap" column="lap"/>
-        <result property="hap" column="hap"/>
-        <result property="cholestrolGoal" column="cholestrol_goal"/>
-        <result property="habp" column="habp"/>
-        <result property="labp" column="labp"/>
-        <result property="bmiGoal" column="bmi_goal"/>
-        <collection property="exerciseList" resultMap="ExerciseMap"/>
-        <collection property="medicationList" resultMap="MedicationMap"/>        
-    </resultMap>
-    
-    <resultMap type="Exercise" id="ExerciseMap">
-        <result property="exerciseId" column="exercise_id"/>
-        <result property="planId" column="plan_id"/>
-        <result property="exerciseName" column="exercise_name"/>
-        <result property="timeToSpend" column="time_to_spend"/>
-        <result property="repetitions" column="repetitions"/>
-        <result property="weight" column="weight"/>        
-    </resultMap>
-    
-    <resultMap type="Medication" id="MedicationMap">
-        <result property="medicationId" column="medication_id"/>
-        <result property="planId" column="plan_id"/>
-        <result property="timeToTake" column="time_to_take"/>
-        <result property="medicineName" column="medicine_name"/>
-        <result property="dosage" column="dosage"/>
-        <result property="type" column="type"/>        
-    </resultMap>
-    
-    <resultMap type="RehabTemplate" id="RehabTemplateMap" extends="RehabPlanMap">
-        <result property="planName" column="planname"/>
-    </resultMap>
-    
-    <resultMap type="Report" id="ReportMap">
-        <result property="reportId" column="report_id"/>
-        <result property="patientId" column="patient_id"/>
-        <result property="cholestrol" column="cholestrol"/>
-        <result property="fat" column="fat"/>
-        <result property="exercise" column="exercise"/>
-        <result property="medication" column="medication"/>
-        <result property="sodium" column="sodium"/>
-        <result property="calories" column="calories"/>
-        <result property="createDate" column="create_date"/>
-        <result property="overallScore" column="overall_score"/>
-    </resultMap>
-    
+	<select id="GetAccountInfoByUsernamePassword" parameterType="LoginRequest" resultMap="AccountMap">
+		select * from account a
+		left outer join personal_info p on a.acct_id = p.acct_id
+		<where>
+			a.username = #{username} and
+			a.password = #{password}
+		</where>
+	</select>
+	<select id="GetAccountInfoById" parameterType="long" resultMap="AccountMap">
+		select * from account a
+		left outer join personal_info p on a.acct_id = p.acct_id
+		<where>
+			a.acct_id = #{param}
+		</where>
+	</select>
+	<select id="GetMedicalProfessionalAccount" parameterType="long"
+		resultMap="MPAccountMap">
+		select * from account a
+		left outer join personal_info p on a.acct_id = p.acct_id
+		left outer join notification n on a.acct_id = n.doctor_id
+		where a.acct_id = #{param} order by n.create_time desc
+	</select>
+	<select id="GetPatientListForMP" parameterType="long"
+		resultMap="PatientMapForMPMap">
+		select * from account a
+		left outer join personal_info p on a.acct_id = p.acct_id
+		left outer join patient_health_data h on h.acct_id = a.acct_id
+		where a.doctor_id = #{param}
+	</select>
+	<select id="GetPatientAccount" parameterType="long" resultMap="PatientAccountMap">
+		select * from account a
+		left outer join personal_info p on a.acct_id = p.acct_id
+		left outer join notification n on a.acct_id = n.patient_id
+		left outer join patient_health_data h on h.acct_id = a.acct_id
+		where a.acct_id = #{param} order by n.create_time desc
+	</select>
+	<select id="GetMedicalProfessionalForPatient" resultMap="MPMapForPatient">
+		select * from account a
+		left outer join personal_info p on a.acct_id = p.acct_id
+		where a.acct_id = #{param}
+	</select>
+	<select id="GetRehabPlan" parameterType="long" resultMap="RehabPlanMap">
+		select * from rehab_plan r
+		left outer join exercise e on e.plan_id = r.plan_id
+		left outer join medication m on m.plan_id = r.plan_id
+		where r.patient_id = #{param}
+	</select>
+	<select id="GetRehabTemplates" resultMap="RehabTemplateMap">
+		select * from rehabplantemplate rpt
+		left outer join rehab_plan r on r.plan_id = rpt.plan_id
+		left outer join exercise e on e.plan_id = r.plan_id
+		left outer join medication m on m.plan_id = r.plan_id
+	</select>
+	<select id="GetPatientReport" parameterType="long" resultMap="ReportMap">
+		select * from report
+		where patient_id=#{param}
+		order by create_date desc limit 1
+	</select>
+	<select id="GetPatientLog" parameterType="long" resultMap="RehabLogMap">
+		select * from rehab_log rl
+		left outer join diet_table dt on rl.log_id = dt.log_id
+		where rl.acct_id = #{param}
+		order by rl.create_date desc limit 1
+	</select>
+
+	<insert id="InsertRehabLog" parameterType="RehabLog"
+		useGeneratedKeys="true">
+		insert into rehab_log
+		(acct_id,create_date,pulse,blood_pressure,weight,medicine_taken,exercise_done)
+		values
+		(#{patientId},#{createDate},#{pulse},#{bloodPressure},#{weight},#{medicineTaken},#{exerciseDone})
+		<selectKey keyProperty="logId" resultType="long" order="AFTER">
+			select last_insert_id();
+		</selectKey>
+	</insert>
+	<insert id="InsertDiet" parameterType="Diet" useGeneratedKeys="true">
+		insert into diet_table
+		(log_id,calories,sodium,food_name,fat,cholestrol)
+		values
+		(#{logId},#{calories},#{sodium},#{foodName},#{fat},#{cholestrol})
+	</insert>
+	<insert id="InsertNotification" parameterType="Notification"
+		useGeneratedKeys="true">
+		insert into notification
+		(patient_id,doctor_id,message,subject,create_time)
+		values
+		(#{patientId},#{doctorId},#{message},#{subject},#{createTime})
+	</insert>
+	<insert id="InsertReport" parameterType="Report">
+		insert into report
+		(patient_id,cholestrol,fat,exercise,medication,sodium,calories,create_date,overall_score)
+		values
+		(#{patientId},#{cholestrol},#{fat},#{exercise},#{medication},#{sodium},#{calories},#{createDate},#{overallScore})
+	</insert>
+
+	<insert id="InsertRehabPlan" parameterType="RehabPlan"
+		useGeneratedKeys="true">
+		insert into rehab_plan
+		(sodium_goal,calorie_goal,create_date,update_date,lap,hap,cholestrol_goal,habp,labp,bmi_goal,template_id,patient_id,doctor_id)
+		values
+		(#{sodiumGoal},#{calorieGoal},#{createDate},#{updateDate},#{lap},#{hap},#{cholestrolGoal},#{habp},#{labp},#{bmiGoal},#{templateId},#{patientId},#{doctorId})
+		<selectKey keyProperty="planId" resultType="long" order="AFTER">
+			select last_insert_id();
+		</selectKey>
+	</insert>
+	<insert id="InsertExercise" parameterType="Exercise"
+		useGeneratedKeys="true">
+		insert into exercise
+		(plan_id,exercise_name,time_to_spend,repetitions,weight)
+		values
+		(#{planId},#{exerciseName},#{timeToSpend},#{repetitions},#{weight})
+	</insert>
+	<insert id="InsertMedication" parameterType="Medication"
+		useGeneratedKeys="true">
+		insert into medication
+		(plan_id,time_to_take,medicine_name,dosage,type)
+		values
+		(#{planId},#{timeToTake},#{medicineName},#{dosage},#{type})
+	</insert>
+
+	<update id="UpdateRehabPlan" parameterType="RehabLog">
+		update rehab_plan
+		set
+		sodium_goal = #{sodiumGoal},
+		calorie_goal = #{calorieGoal},
+		create_date = #{createDate},
+		update_date = #{updateDate},
+		lap = #{lap},
+		hap = #{hap},
+		cholestrol_goal = #{cholestrolGoal},
+		habp = #{habp},
+		labp = #{labp},
+		bmi_goal = #{bmiGoal},
+		template_id = #{templateId}
+		where
+		plan_id = #{planId}
+	</update>
+	<update id="UpdateExercise" parameterType="Exercise">
+		update exercise
+		set
+		exercise_name = #{exerciseName},
+		time_to_spend = #{timeToSpend},
+		repetitions = #{repetitions},
+		weight = #{weight}
+		where
+		exercise_id = #{exerciseId}
+	</update>
+	<update id="UpdateMedication" parameterType="Medication">
+		update medication
+		set
+		time_to_take = #{timeToTake},
+		medicine_name = #{medicineName},
+		dosage = #{dosage},
+		type = #{type}
+		where
+		medication_id = #{medicationId}
+	</update>
+
+	<resultMap type="PersonInfo" id="PersonInfoMap">
+		<result property="firstName" column="first_name" />
+		<result property="lastName" column="last_name" />
+		<result property="email" column="email" />
+		<result property="gender" column="gender" />
+		<result property="dob" column="dob" />
+	</resultMap>
+
+	<resultMap type="Account" id="AccountMap" extends="PersonInfoMap">
+		<result property="accountId" column="acct_id" />
+		<result property="username" column="username" />
+		<result property="active" javaType="boolean" column="status" />
+		<result property="role" column="role" />
+		<collection property="notificationList" resultMap="NotificationMap" />
+	</resultMap>
+
+	<resultMap type="MedicalProfessional" id="MPAccountMap"
+		extends="AccountMap">
+		<collection property="patientList" column="acct_id"
+			select="GetPatientListForMP" />
+	</resultMap>
+
+	<resultMap type="Patient" id="PatientAccountMap" extends="AccountMap">
+		<association property="healthData" resultMap="HealthDataMap" />
+		<association property="rehabPlan" column="acct_id" select="GetRehabPlan" />
+		<association property="lastReport" column="acct_id"
+			select="GetPatientReport" />
+		<association property="lastLog" column="acct_id" select="GetPatientLog" />
+		<association property="doctor" column="doctor_id"
+			select="GetMedicalProfessionalForPatient" />
+	</resultMap>
+
+	<resultMap type="Patient" id="PatientMapForMPMap" extends="AccountMap">
+		<association property="healthData" resultMap="HealthDataMap" />
+		<association property="rehabPlan" column="acct_id" select="GetRehabPlan" />
+		<association property="lastLog" column="acct_id" select="GetPatientLog" />
+		<association property="lastReport" column="acct_id"
+			select="GetPatientReport" />
+	</resultMap>
+	<resultMap type="MedicalProfessional" id="MPMapForPatient"
+		extends="AccountMap">
+	</resultMap>
+
+	<resultMap type="HealthData" id="HealthDataMap">
+		<result property="fileId" column="file_id" />
+		<result property="bloodPressure" column="blood_pressure" />
+		<result property="pulse" column="pulse" />
+		<result property="calorieIndex" column="calorie_index" />
+		<result property="sodiumConsumption" column="sodium_consumption" />
+		<result property="bmiIndex" column="bmi_index" />
+		<result property="cholestrolIndex" column="cholestrol_index" />
+		<result property="weight" column="weight" />
+		<result property="height" column="height" />
+	</resultMap>
+
+	<resultMap type="Notification" id="NotificationMap">
+		<result property="patientId" column="patient_id" />
+		<result property="doctorId" column="doctor_id" />
+		<result property="message" column="message" />
+		<result property="subject" column="subject" />
+		<result property="createTime" javaType="java.util.Date" column="create_time" />
+	</resultMap>
+	<resultMap type="RehabPlan" id="RehabPlanMap">
+		<result property="planId" column="plan_id" />
+		<result property="patientId" column="patient_id" />
+		<result property="doctorId" column="doctor_id" />
+		<result property="templateId" column="template_id" />
+		<result property="sodiumGoal" column="sodium_goal" />
+		<result property="calorieGoal" column="calorie_goal" />
+		<result property="createDate" javaType="java.util.Date" column="create_date" />
+		<result property="updateDate" javaType="java.util.Date" column="update_date" />
+		<result property="lap" column="lap" />
+		<result property="hap" column="hap" />
+		<result property="cholestrolGoal" column="cholestrol_goal" />
+		<result property="habp" column="habp" />
+		<result property="labp" column="labp" />
+		<result property="bmiGoal" column="bmi_goal" />
+		<collection property="exerciseList" resultMap="ExerciseMap" />
+		<collection property="medicationList" resultMap="MedicationMap" />
+	</resultMap>
+
+	<resultMap type="Exercise" id="ExerciseMap">
+		<result property="exerciseId" column="exercise_id" />
+		<result property="planId" column="plan_id" />
+		<result property="exerciseName" column="exercise_name" />
+		<result property="timeToSpend" column="time_to_spend" />
+		<result property="repetitions" column="repetitions" />
+		<result property="weight" column="weight" />
+	</resultMap>
+
+	<resultMap type="Medication" id="MedicationMap">
+		<result property="medicationId" column="medication_id" />
+		<result property="planId" column="plan_id" />
+		<result property="timeToTake" column="time_to_take" />
+		<result property="medicineName" column="medicine_name" />
+		<result property="dosage" column="dosage" />
+		<result property="type" column="type" />
+	</resultMap>
+
+	<resultMap type="RehabTemplate" id="RehabTemplateMap"
+		extends="RehabPlanMap">
+		<result property="planName" column="planname" />
+	</resultMap>
+
+	<resultMap type="Report" id="ReportMap">
+		<result property="reportId" column="report_id" />
+		<result property="patientId" column="patient_id" />
+		<result property="cholestrol" column="cholestrol" />
+		<result property="fat" column="fat" />
+		<result property="exercise" column="exercise" />
+		<result property="medication" column="medication" />
+		<result property="sodium" column="sodium" />
+		<result property="calories" column="calories" />
+		<result property="createDate" column="create_date" />
+		<result property="overallScore" column="overall_score" />
+	</resultMap>
+
+	<resultMap type="RehabLog" id="RehabLogMap">
+		<result property="logId" column="log_id" />
+		<result property="patientId" column="patient_id" />
+		<result property="createDate" column="create_date" />
+		<result property="pulse" column="pulse" />
+		<result property="bloodPressure" column="blood_pressure" />
+		<result property="weight" column="weight" />
+		<result property="medicineTaken" column="medicine_taken" />
+		<result property="exerciseDone" column="exercise_done" />
+		<collection property="dietList" resultMap="DietMap" />
+	</resultMap>
+	<resultMap type="Diet" id="DietMap">
+		<result property="logId" column="log_id" />
+		<result property="calories" column="calories" />
+		<result property="sodium" column="sodium" />
+		<result property="cholestrol" column="cholestrol" />
+		<result property="foodName" column="food_name" />
+		<result property="fat" column="fat" />
+	</resultMap>
+
 	<!-- for secondary level caching -->
-	<!-- <cache eviction="LRU" flushInterval="60000" size="512" readOnly="true" /> -->
+	<!-- <cache eviction="LRU" flushInterval="60000" size="512" readOnly="true" 
+		/> -->
 </mapper>

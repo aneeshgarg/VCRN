@@ -15,6 +15,7 @@ public class Patient extends Account {
     private HealthData        healthData;
     private RehabPlan         rehabPlan;
     private Report            lastReport;
+    private RehabLog          lastLog;
 
     public Account getDoctor() {
         return doctor;
@@ -48,11 +49,19 @@ public class Patient extends Account {
         this.lastReport = lastReport;
     }
 
+    public RehabLog getLastLog() {
+        return lastLog;
+    }
+
+    public void setLastLog(RehabLog lastLog) {
+        this.lastLog = lastLog;
+    }
+
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
         builder.append("Patient [doctor=").append(doctor).append(", healthData=").append(healthData).append(", rehabPlan=").append(rehabPlan)
-                .append(", lastReport=").append(lastReport).append("]").append(super.toString());
+                .append(", lastReport=").append(lastReport).append(", lastLog=").append(lastLog).append("]").append(super.toString());
         return builder.toString();
     }
 
