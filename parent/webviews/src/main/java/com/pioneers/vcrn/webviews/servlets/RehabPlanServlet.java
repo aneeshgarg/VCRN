@@ -8,7 +8,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.pioneers.vcrn.data.MedicalProfessional;
+import com.pioneers.vcrn.data.RehabPlan;
 import com.pioneers.vcrn.data.RehabTemplate;
+import com.pioneers.vcrn.request.RehabLogRequest;
 import com.pioneers.vcrn.response.RehabTemplateResponse;
 import com.pioneers.vcrn.webviews.helper.RestHelper;
 
@@ -26,10 +29,8 @@ public class RehabPlanServlet extends HttpServlet {
 
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("hello");
-		System.out.println(request.getParameter("newPlan"));
-	
-			if(request.getParameter("newPlan") == null){	
+			
+			if(request.getAttribute("newPlan") == null){	
 				if (request.getParameter("selectedTemplate") == null){
 					
 						RehabTemplateResponse templates = new RehabTemplateResponse();
@@ -68,8 +69,21 @@ public class RehabPlanServlet extends HttpServlet {
 				}
 			}
 			else{
-				System.out.println("hello");
-				System.out.println(request.getParameter("newPlan"));
+				HttpSession session = request.getSession();
+				RehabLogRequest rehabreq = new RehabLogRequest();
+				MedicalProfessional docAccount = (MedicalProfessional) session.getAttribute("accountBean");
+				rehabreq.setDoctorId(docAccount.getAccountId());
+				rehabreq.setPlan((RehabPlan) request.getAttribute("newPlan"));
+				System.out.println(request.getAttribute("newPlan"));
+				System.out.println(rehabreq.getPlan());
+				try {
+        			RestHelper savePlan = new RestHelper();
+        			savePlan.callRestService("/facade/savelog", "PUT", rehabreq, RehabLogRequest.class);
+		        } catch (Exception e) {
+		            System.out.println(e.getMessage());
+		            e.printStackTrace();
+		        }
+		
 			}
 	}
 

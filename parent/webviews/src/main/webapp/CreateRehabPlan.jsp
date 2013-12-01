@@ -20,6 +20,7 @@
 		var newrow = $('<tr><td style="text-align: center; width: 200px;"><input type="text" style="width: 150px" /></td><td style="text-align: center; width: 200px;"><input type="text" style="width: 150px" /></td><td style="text-align: center; width: 200px;"><input type="text" style="width: 150px" /></td><td style="text-align: center; width: 200px;"><input type="text" style="width: 150px" /></td></tr>');
 		$("#exercise").append($(newrow));
 	}
+	
 	</script>
 	<title>Virtual Cardiac Rehabilitation Nurse - Login</title>
 </head>
@@ -66,19 +67,19 @@
 			                </tr>
 			                <tr >
 			                    <td style="text-align:right">Lowest Acceptable Pulse: </td>
-			                    <td style="text-align:left"><input type="text" style="width: 50px" id="labp" value="${plantemplate.lap}"/></td>	
+			                    <td style="text-align:left"><input name="lap" type="text" style="width: 50px" id="labp" value="${plantemplate.lap}"/></td>	
 			                </tr>
 			                <tr >
 			                    <td style="text-align:right">Highest Acceptable Pulse:</td>
-			                    <td style="text-align:left"><input type="text" style="width: 50px" value="${plantemplate.hap}"/></td>
+			                    <td style="text-align:left"><input name="hap" type="text" style="width: 50px" value="${plantemplate.hap}"/></td>
 			                </tr>
 			                <tr>
 			                    <td style="text-align:right">Lowest Acceptable Blood Pressure:</td>
-			                    <td style="text-align:left"> <input type="text" style="width: 50px" value="${plantemplate.labp}" /></td>
+			                    <td style="text-align:left"> <input name="labp" type="text" style="width: 50px" value="${plantemplate.labp}" /></td>
 			                </tr>
 			                <tr >
 			                    <td style="text-align:right">Highest Acceptable Blood Pressure:</td>
-			                    <td style="text-align:left"> <input type="text" style="width: 50px" value="${plantemplate.habp}"/></td>
+			                    <td style="text-align:left"> <input name="habp" type="text" style="width: 50px" value="${plantemplate.habp}"/></td>
 			                </tr>
 			            </table>
 			            </center>
@@ -92,19 +93,19 @@
 			                </tr>			
 			                <tr>
 			                    <td style="text-align:right">Calorie Goal:</td>
-			                    <td style="text-align:left"><input type="text" style="width: 50px" value="${plantemplate.calorieGoal}"/></td>
+			                    <td style="text-align:left"><input name="calorieGoal" type="text" style="width: 50px" value="${plantemplate.calorieGoal}"/></td>
 			                </tr>
 			                <tr>
 			                    <td style="text-align:right">Fat Goal:</td>
-			                    <td style="text-align:left"><input type="text" style="width: 50px" value="${plantemplate.bmiGoal}"/></td>
+			                    <td style="text-align:left"><input name="bmiGoal" type="text" style="width: 50px" value="${plantemplate.bmiGoal}"/></td>
 			                </tr>
 			                <tr>
 			                    <td style="text-align:right">Sodium Goal:</td>
-			                    <td style="text-align:left"><input type="text" style="width: 50px" value="${plantemplate.sodiumGoal}"/></td>
+			                    <td style="text-align:left"><input name="sodiumGoal" type="text" style="width: 50px" value="${plantemplate.sodiumGoal}"/></td>
 			                </tr>
 			                <tr>
 			                    <td style="text-align:right">Cholesterol Goal:</td>
-			                    <td style="text-align:left"><input type="text" style="width: 50px" value="${plantemplate.cholestrolGoal}"/></td>
+			                    <td style="text-align:left"><input name="cholestrolGoal" type="text" style="width: 50px" value="${plantemplate.cholestrolGoal}"/></td>
 			                </tr>
 			            </table>
 			        </div>
@@ -120,29 +121,29 @@
 			                    <th style="text-align: center;">Repetitions</th>
 			                </tr>
 			                <c:if test="${plantemplate.exerciseList!=null}">
-			                <c:forEach var="exercise" items="${plantemplate.exerciseList}">
+			                <c:forEach var="exercise" items="${plantemplate.exerciseList}" >
 			                <tr>
 			                    <td style="text-align: center; width: 200px;">
-			                        <input type="text" style="width: 150px" value="${exercise.exerciseName}"/></td>
+			                        <input name="excerciseName" type="text" style="width: 150px" value="${exercise.exerciseName}"/></td>
 			                    <td style="text-align: center; width: 200px;">
-			                        <input type="text" style="width: 150px" value="${exercise.timeToSpend}"/></td>
+			                        <input name="timeToSpend" type="text" style="width: 150px" value="${exercise.timeToSpend}"/></td>
 			                    <td style="text-align: center; width: 200px;">
-			                        <input type="text" style="width: 150px" value="${exercise.weight}"/></td>
+			                        <input name="weight" type="text" style="width: 150px" value="${exercise.weight}"/></td>
 			                    <td style="text-align: center; width: 200px;">
-			                        <input type="text" style="width: 150px" value="${exercise.repetitions}"/></td>
+			                        <input name="repetitions" type="text" style="width: 150px" value="${exercise.repetitions}"/></td>
 			                </tr>
 			                </c:forEach>
 			                </c:if>
 			                <c:if test="${plantemplate.exerciseList==null}">
 			                	<tr>
 			                		<td style="text-align: center; width: 200px;">
-			                		<input type="text" style="width: 150px" /></td>
+			                		<input name="excerciseName" type="text" style="width: 150px" /></td>
 			                		<td style="text-align: center; width: 200px;">
-			                		<input type="text" style="width: 150px" /></td>
+			                		<input name="timeToSpend" type="text" style="width: 150px" /></td>
 			                		<td style="text-align: center; width: 200px;">
-			                		<input type="text" style="width: 150px" /></td>
+			                		<input name="weight" type="text" style="width: 150px" /></td>
 			                		<td style="text-align: center; width: 200px;">
-			                		<input type="text" style="width: 150px" /></td></tr>
+			                		<input name="repetitions" type="text" style="width: 150px" /></td></tr>
 			                </c:if>
 			            </table></center>
 			            <input type="button" value="Add New Exercise" onClick="addExercise()" />
@@ -162,26 +163,26 @@
 			                <c:forEach var="medic" items="${plantemplate.medicationList}">
 			                <tr>
 			                    <td style="text-align: center; width: 200px;">
-			                        <input type="text" style="width: 150px" value="${medic.medicineName}"/></td>
+			                        <input name="medicineName" type="text" style="width: 150px" value="${medic.medicineName}"/></td>
 			                    <td style="text-align: center; width: 200px;">
-			                        <input type="text" style="width: 150px" value="${medic.timeToTake}"/></td>
+			                        <input name="timeToTake" type="text" style="width: 150px" value="${medic.timeToTake}"/></td>
 			                    <td style="text-align: center; width: 200px;">
-			                        <input type="text" style="width: 150px" value="${medic.dosage}"/></td>
+			                        <input name="dosage" type="text" style="width: 150px" value="${medic.dosage}"/></td>
 			                    <td style="text-align: center; width: 200px;">
-			                        <input type="text" style="width: 150px" value="${medic.type}"/></td>
+			                        <input name="type" type="text" style="width: 150px" value="${medic.type}"/></td>
 			                </tr>
 			                </c:forEach>
 			                </c:if>
 			                <c:if test="${plantemplate.medicationList==null}">
 			               		 <tr>
 			               		 	<td style="text-align: center; width: 200px;">
-			               		 	<input type="text" style="width: 150px" /></td>
+			               		 	<input name="medicineName" type="text" style="width: 150px" /></td>
 			               		 	<td style="text-align: center; width: 200px;">
-			               		 	<input type="text" style="width: 150px" /></td>
+			               		 	<input name="timeToTake" type="text" style="width: 150px" /></td>
 			               		 	<td style="text-align: center; width: 200px;">
-			               		 	<input type="text" style="width: 150px" /></td>
+			               		 	<input name="dosage" type="text" style="width: 150px" /></td>
 			               		 	<td style="text-align: center; width: 200px;">
-			               		 	<input type="text" style="width: 150px" /></td>
+			               		 	<input name="type" type="text" style="width: 150px" /></td>
 			               		 </tr>
 			                </c:if>
 			            </table></center>
@@ -189,6 +190,7 @@
 			        </div>
 			
 			        <br />
+			        	
 			        <input type="submit" value="Save Plan" />
 				
 			    </div>
