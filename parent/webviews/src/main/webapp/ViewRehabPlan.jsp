@@ -13,20 +13,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 	<link rel="stylesheet" href="css/vcrn.css" type="text/css" />
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-	<script type="text/javascript">
-	function addMedicine(){
-		var rowCount = $('#medicine tr').length;
-		var newrow = $('<tr><td style="text-align: center; width: 200px;"><input name="medicineName'+rowCount+'" type="text" style="width: 150px" /></td><td style="text-align: center; width: 200px;"><input name="timeToTake'+rowCount+'" type="text" style="width: 150px" /></td><td style="text-align: center; width: 200px;"><input name="dosage'+rowCount+'" type="text" style="width: 150px" /></td><td style="text-align: center; width: 200px;"><input name="type'+rowCount+'" type="text" style="width: 150px" /></td></tr>');
-		$("#medicine").append($(newrow));
-	}
-	function addExercise(){
-		var rowCount = $('#exercise tr').length;
-		var newrow = $('<tr><td style="text-align: center; width: 200px;"><input name="excerciseName'+rowCount+'" type="text" style="width: 150px" /></td><td style="text-align: center; width: 200px;"><input name="timeToSpend'+rowCount+'" type="text" style="width: 150px" /></td><td style="text-align: center; width: 200px;"><input name="weight'+rowCount+'" type="text" style="width: 150px" /></td><td style="text-align: center; width: 200px;"><input name="repetitions'+rowCount+'" type="text" style="width: 150px" /></td></tr>');
-		$("#exercise").append($(newrow));
-	}
-	
-	</script>	
-	<title>Virtual Cardiac Rehabilitation Nurse - Manage Rehab Plan</title>
+	<title>Virtual Cardiac Rehabilitation Nurse - View Rehab Plan</title>
 </head>
 
 <body class="page">
@@ -35,14 +22,13 @@
 		<div id="PageHeader" class="pageheader">
 			<jsp:include page="pageheader.jsp"/>	
 			<div class="logout">Hi ${accountBean.firstName} !!!<a href="logout"><input type="button" style="float:right" value="Logout"/></a></div>
-			<a class="currentpage" href="ManageRehabPlan.jsp">Manage Rehab Plan</a>	
+			<a class="currentpage" href="ViewRehabPlan.jsp">View Rehab Plan</a>	
 			
 					<div id="menu" class="menu">
 						<table style="width:100%">
 								<tr>
 									<td ><a class="aheader" href="home.jsp">Home</a></td>
-									<td ><a class="aheader" href="PatientList.jsp">View Patient List</a></td>		
-									<td ><a class="aheader" href="rehabplan">Create Rehab Plan</a></td>								
+									<td ><a class="aheader" href="ViewRehabLog.jsp">View Rehab Log</a></td>										
 								</tr></table>
 					</div>
 		</div>
@@ -67,7 +53,6 @@
 				    		request.setAttribute("currPat",currPat);
 			    		%>
 							    <div class="wideCenter">
-							    	<h3>Update Rehab Plan For ${currPat.firstName} ${currPat.lastName}</h3>
 									 			
 							        <div style="float: left; text-align: right; width: 50%">
 							        	<center>
