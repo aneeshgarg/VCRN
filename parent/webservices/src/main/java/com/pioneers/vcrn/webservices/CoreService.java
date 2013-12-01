@@ -6,6 +6,7 @@ import com.pioneers.vcrn.data.Notification;
 import com.pioneers.vcrn.data.RehabLog;
 import com.pioneers.vcrn.data.RehabPlan;
 import com.pioneers.vcrn.datastore.RehabLogDatastore;
+import com.pioneers.vcrn.datastore.RehabPlanDatastore;
 import com.pioneers.vcrn.request.RehabLogRequest;
 
 /**
@@ -86,6 +87,14 @@ public class CoreService {
         double hap = plan.getHap();
         double pulse = log.getPulse();
         return (pulse >= lap && pulse <= hap);
+    }
+
+    public void saveRehabPlan(RehabPlan plan) throws Exception {
+        new RehabPlanDatastore().insertPlan(plan);
+    }
+
+    public void updateRehabPlan(RehabPlan plan) throws Exception {
+        new RehabPlanDatastore().updatePlan(plan);
     }
 
 }

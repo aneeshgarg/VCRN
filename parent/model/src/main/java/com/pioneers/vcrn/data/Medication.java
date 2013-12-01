@@ -12,6 +12,7 @@ public class Medication extends BaseObject {
     private static final long serialVersionUID = 137679477556271550L;
 
     private long              medicationId;
+    private long              planId;
     private String            timeToTake;
     private String            medicineName;
     private String            dosage;
@@ -23,6 +24,14 @@ public class Medication extends BaseObject {
 
     public void setMedicationId(long medicationId) {
         this.medicationId = medicationId;
+    }
+
+    public long getPlanId() {
+        return planId;
+    }
+
+    public void setPlanId(long planId) {
+        this.planId = planId;
     }
 
     public String getTimeToTake() {

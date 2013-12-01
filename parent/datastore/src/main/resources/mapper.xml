@@ -81,6 +81,70 @@
         (#{patientId},#{cholestrol},#{fat},#{excercise},#{medication},#{sodium},#{calories},#{createDate},#{overallScore})
     </insert>
     
+    <insert id="InsertRehabPlan" parameterType="RehabPlan" useGeneratedKeys="true">
+        insert into rehab_plan
+        (sodium_goal,calorie_goal,create_date,update_date,lap,hap,cholestrol_goal,habp,labp,bmi_goal,template_id,patient_id,doctor_id)
+        values
+        (#{sodiumGoal},#{calorieGoal},#{createDate},#{updateDate},#{lap},#{hap},#{cholestrolGoal},#{habp},#{labp},#{bmiGoal},#{templateId},#{patientId},#{doctorId})
+		 <selectKey keyProperty="planId" resultType="long" order="AFTER">
+            select last_insert_id();
+        </selectKey>
+    </insert>
+    <insert id="InsertExercise" parameterType="Exercise" useGeneratedKeys="true">
+        insert into exercise
+        (plan_id,exercise_name,time_to_spend,repetitions,weight)
+        values
+        (#{planId},#{exerciseName},#{timeToSpend},#{repetitions},#{weight})
+    </insert>
+    <insert id="InsertMedication" parameterType="Medication" useGeneratedKeys="true">
+        insert into medication
+        (plan_id,time_to_take,medicine_name,dosage,type)
+        values
+        (#{planId},#{timeToTake},#{medicineName},#{dosage},#{type})
+    </insert>
+    
+    <update id="UpdateRehabPlan" parameterType="RehabLog">
+        update rehab_plan
+        set 
+        sodium_goal = #{sodiumGoal},
+        calorie_goal = #{calorieGoal},
+        create_date = #{createDate},
+        update_date = #{updateDate},
+        lap = #{lap},
+        hap = #{hap},
+        cholestrol_goal = #{cholestrolGoal},
+        habp = #{habp},
+        labp = #{labp},
+        bmi_goal = #{bmiGoal},
+        template_id = #{templateId},
+        patient_id = #{patientId},
+        doctor_id = #{doctorId}
+        where
+        plan_id = #{planId}
+    </update>
+    <update id="UpdateExercise" parameterType="Exercise">
+        update exercise
+        set
+        plan_id = #{planId},
+        exercise_name = #{exerciseName},
+        time_to_spend = #{timeToSpend},
+        repetitions = #{repetitions},
+        weight = #{weight}
+        where
+        exercise_id = #{exerciseId}
+    </update>
+    <update id="UpdateMedication" parameterType="Medication">
+        update medication
+        set
+        plan_id = #{planId},
+        time_to_take = #{timeToTake},
+        medicine_name = #{medicineName},
+        dosage = #{dosage},
+        type = #{type}
+        where
+        medication_id = #{medicationId}
+    </update>
+    
     <resultMap type="PersonInfo" id="PersonInfoMap">
         <result property="firstName" column="first_name"/>
         <result property="lastName" column="last_name"/>
@@ -137,6 +201,8 @@
     </resultMap>
     <resultMap type="RehabPlan" id="RehabPlanMap">
         <result property="planId" column="plan_id"/>
+        <result property="patientId" column="patient_id"/>
+        <result property="doctorId" column="doctor_id"/>
         <result property="templateId" column="template_id"/>
         <result property="sodiumGoal" column="sodium_goal"/>
         <result property="calorieGoal" column="calorie_goal"/>
@@ -154,6 +220,7 @@
     
     <resultMap type="Exercise" id="ExerciseMap">
         <result property="exerciseId" column="exercise_id"/>
+        <result property="planId" column="plan_id"/>
         <result property="exerciseName" column="exercise_name"/>
         <result property="timeToSpend" column="time_to_spend"/>
         <result property="repetitions" column="repetitions"/>
@@ -162,6 +229,7 @@
     
     <resultMap type="Medication" id="MedicationMap">
         <result property="medicationId" column="medication_id"/>
+        <result property="planId" column="plan_id"/>
         <result property="timeToTake" column="time_to_take"/>
         <result property="medicineName" column="medicine_name"/>
         <result property="dosage" column="dosage"/>
@@ -186,5 +254,5 @@
     </resultMap>
     
 	<!-- for secondary level caching -->
-	<cache eviction="LRU" flushInterval="60000" size="512" readOnly="true" />
+	<!-- <cache eviction="LRU" flushInterval="60000" size="512" readOnly="true" /> -->
 </mapper>
