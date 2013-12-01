@@ -116,16 +116,13 @@
         habp = #{habp},
         labp = #{labp},
         bmi_goal = #{bmiGoal},
-        template_id = #{templateId},
-        patient_id = #{patientId},
-        doctor_id = #{doctorId}
+        template_id = #{templateId}
         where
         plan_id = #{planId}
     </update>
     <update id="UpdateExercise" parameterType="Exercise">
         update exercise
         set
-        plan_id = #{planId},
         exercise_name = #{exerciseName},
         time_to_spend = #{timeToSpend},
         repetitions = #{repetitions},
@@ -136,7 +133,6 @@
     <update id="UpdateMedication" parameterType="Medication">
         update medication
         set
-        plan_id = #{planId},
         time_to_take = #{timeToTake},
         medicine_name = #{medicineName},
         dosage = #{dosage},
