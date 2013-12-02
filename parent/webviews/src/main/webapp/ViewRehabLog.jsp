@@ -1,8 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
-<%@ page import="com.pioneers.vcrn.data.Patient"%>
-<%@ page import="com.pioneers.vcrn.data.MedicalProfessional"%>
-<%@ page import="java.util.List"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page isELIgnored="false"%>
@@ -24,7 +21,7 @@
 		<div id="PageHeader" class="pageheader">
 			<jsp:include page="pageheader.jsp" />
 			<div class="logout">
-				Hi ${accountBean.firstName} !!!<a href="Login.jsp"><input
+				Hi ${accountBean.firstName} !!!<a href="logout"><input
 					type="button" style="float: right" value="Logout" /></a>
 			</div>
 			<a class="currentpage" href="ViewRehabLog.jsp">View Rehab Log</a>
@@ -32,7 +29,8 @@
 				<table style="width: 100%">
 					<tr>
 						<td><a class="aheader" href="home.jsp">Home</a></td>
-						<td><a class="aheader" href="ViewRehabPlan.jsp">View Rehab Plan</a></td>
+						<td><a class="aheader" href="ViewRehabPlan.jsp">View
+								Rehab Plan</a></td>
 					</tr>
 				</table>
 			</div>
@@ -40,22 +38,18 @@
 
 		<center>
 			<div id="contentpage" class="contentpage">
-				<%
-					List<Patient> patientList = ((MedicalProfessional) session
-							.getAttribute("accountBean")).getPatientList();
-					long patId = Long.valueOf(request.getParameter("patientId"));
-					Patient currPat = null;
-					for (Patient p : patientList) {
-						if (patId == p.getAccountId()) {
-							currPat = p;
-						}
-					}
-					System.out.println(currPat);
-					request.setAttribute("currPat", currPat);
-				%>
+				<c:if test="${message != null}">
+					<center>
+						<div class="wideCenter">
+							<h3>
+								<strong>${message}</strong>
+							</h3>
+						</div>
+					</center>
+				</c:if>
 				<div class="wideCenter">
-					<h3>Rehab Log For Patient ${currPat.firstName}
-						${currPat.lastName}</h3>
+					<h3>Rehab Log For Patient ${accountBean.firstName}
+						${accountBean.lastName}</h3>
 
 					<div style="float: left; text-align: right; width: 50%">
 						<center>
@@ -67,26 +61,26 @@
 								<tr>
 									<td style="text-align: right">Lowest Acceptable Pulse:</td>
 									<td style="text-align: left"><input name="lap" type="text"
-										style="width: 50px" id="labp" value="${currPat.rehabPlan.lap}" /></td>
+										style="width: 50px" id="labp" value="${accountBean.rehabPlan.lap}" /></td>
 								</tr>
 								<tr>
 									<td style="text-align: right">Highest Acceptable Pulse:</td>
 									<td style="text-align: left"><input name="hap" type="text"
-										style="width: 50px" value="${currPat.rehabPlan.hap}" /></td>
+										style="width: 50px" value="${accountBean.rehabPlan.hap}" /></td>
 								</tr>
 								<tr>
 									<td style="text-align: right">Lowest Acceptable Blood
 										Pressure:</td>
 									<td style="text-align: left"><input name="labp"
 										type="text" style="width: 50px"
-										value="${currPat.rehabPlan.labp}" /></td>
+										value="${accountBean.rehabPlan.labp}" /></td>
 								</tr>
 								<tr>
 									<td style="text-align: right">Highest Acceptable Blood
 										Pressure:</td>
 									<td style="text-align: left"><input name="habp"
 										type="text" style="width: 50px"
-										value="${currPat.rehabPlan.habp}" /></td>
+										value="${accountBean.rehabPlan.habp}" /></td>
 								</tr>
 							</table>
 						</center>
@@ -102,25 +96,25 @@
 									<td style="text-align: right">Calorie Goal:</td>
 									<td style="text-align: left"><input name="calorieGoal"
 										type="text" style="width: 50px"
-										value="${currPat.rehabPlan.calorieGoal}" /></td>
+										value="${accountBean.rehabPlan.calorieGoal}" /></td>
 								</tr>
 								<tr>
 									<td style="text-align: right">Fat Goal:</td>
 									<td style="text-align: left"><input name="bmiGoal"
 										type="text" style="width: 50px"
-										value="${currPat.rehabPlan.bmiGoal}" /></td>
+										value="${accountBean.rehabPlan.bmiGoal}" /></td>
 								</tr>
 								<tr>
 									<td style="text-align: right">Sodium Goal:</td>
 									<td style="text-align: left"><input name="sodiumGoal"
 										type="text" style="width: 50px"
-										value="${currPat.rehabPlan.sodiumGoal}" /></td>
+										value="${accountBean.rehabPlan.sodiumGoal}" /></td>
 								</tr>
 								<tr>
 									<td style="text-align: right">Cholesterol Goal:</td>
 									<td style="text-align: left"><input name="cholestrolGoal"
 										type="text" style="width: 50px"
-										value="${currPat.rehabPlan.cholestrolGoal}" /></td>
+										value="${accountBean.rehabPlan.cholestrolGoal}" /></td>
 								</tr>
 							</table>
 						</center>
@@ -136,9 +130,9 @@
 									<th style="text-align: center;">Weight</th>
 									<th style="text-align: center;">Repetitions</th>
 								</tr>
-								<c:if test="${currPat.rehabPlan.exerciseList!=null}">
+								<c:if test="${accountBean.rehabPlan.exerciseList!=null}">
 									<c:forEach var="exercise"
-										items="${currPat.rehabPlan.exerciseList}" varStatus="status">
+										items="${accountBean.rehabPlan.exerciseList}" varStatus="status">
 										<tr>
 											<td style="text-align: center; width: 200px;"><input
 												name="excerciseName${status.count}" type="text"
@@ -155,7 +149,7 @@
 										</tr>
 									</c:forEach>
 								</c:if>
-								<c:if test="${currPat.rehabPlan.exerciseList==null}">
+								<c:if test="${accountBean.rehabPlan.exerciseList==null}">
 									<tr>
 										<td style="text-align: center; width: 200px;"><input
 											name="excerciseName1" type="text" style="width: 150px" /></td>
@@ -183,9 +177,9 @@
 									<th style="text-align: center;">Dosage</th>
 									<th style="text-align: center;">Type</th>
 								</tr>
-								<c:if test="${currPat.rehabPlan.medicationList!=null}">
+								<c:if test="${accountBean.rehabPlan.medicationList!=null}">
 									<c:forEach var="medic"
-										items="${currPat.rehabPlan.medicationList}" varStatus="status">
+										items="${accountBean.rehabPlan.medicationList}" varStatus="status">
 										<tr>
 											<td style="text-align: center; width: 200px;"><input
 												name="medicineName${status.count}" type="text"
@@ -202,7 +196,7 @@
 										</tr>
 									</c:forEach>
 								</c:if>
-								<c:if test="${currPat.rehabPlan.medicationList==null}">
+								<c:if test="${accountBean.rehabPlan.medicationList==null}">
 									<tr>
 										<td style="text-align: center; width: 200px;"><input
 											name="medicineName1" type="text" style="width: 150px" /></td>
@@ -221,8 +215,8 @@
 					<br /> <input type="hidden" name="doctorId"
 						value="${accountBean.accountId}"> <input type="hidden"
 						name="action" value="updatePlan"> <input type="hidden"
-						name="planId" value="${currPat.rehabPlan.planId}"> <input
-						type="hidden" name="patientId" value="${currPat.accountId}">
+						name="planId" value="${accountBean.rehabPlan.planId}"> <input
+						type="hidden" name="patientId" value="${accountBean.accountId}">
 					<input type="submit" value="Update Plan" />
 
 				</div>
