@@ -117,11 +117,12 @@
 									</c:forEach>
 								</select>
 							</center>
+							<br>
 							<c:if test="${currPat!=null }">
 								<div id="patientDataDiv" class="wideCenter">
 									<center>
 										<strong>Patient File Data</strong>
-										<table>
+										<table >
 											<tr>
 												<td style="text-align: right">File ID:</td>
 												<td style="text-align: left">${currPat.healthData.fileId}</td>
@@ -165,24 +166,24 @@
 											<td style="text-align: right">Lowest Acceptable Pulse:</td>
 											<td style="text-align: left"><input name="lap"
 												type="text" style="width: 50px" id="labp"
-												value="${plantemplate.lap}" /></td>
+												value="${plantemplate.lap}" required/></td>
 										</tr>
 										<tr>
 											<td style="text-align: right">Highest Acceptable Pulse:</td>
 											<td style="text-align: left"><input name="hap"
-												type="text" style="width: 50px" value="${plantemplate.hap}" /></td>
+												type="text" style="width: 50px" value="${plantemplate.hap}" required/></td>
 										</tr>
 										<tr>
 											<td style="text-align: right">Lowest Acceptable Blood
 												Pressure:</td>
 											<td style="text-align: left"><input name="labp"
-												type="text" style="width: 50px" value="${plantemplate.labp}" /></td>
+												type="text" style="width: 50px" value="${plantemplate.labp}" required/></td>
 										</tr>
 										<tr>
 											<td style="text-align: right">Highest Acceptable Blood
 												Pressure:</td>
 											<td style="text-align: left"><input name="habp"
-												type="text" style="width: 50px" value="${plantemplate.habp}" /></td>
+												type="text" style="width: 50px" value="${plantemplate.habp}" required/></td>
 										</tr>
 									</table>
 								</center>
@@ -198,25 +199,25 @@
 											<td style="text-align: right">Calorie Goal:</td>
 											<td style="text-align: left"><input name="calorieGoal"
 												type="text" style="width: 50px"
-												value="${plantemplate.calorieGoal}" /></td>
+												value="${plantemplate.calorieGoal}" required/></td>
 										</tr>
 										<tr>
 											<td style="text-align: right">Fat Goal:</td>
 											<td style="text-align: left"><input name="bmiGoal"
 												type="text" style="width: 50px"
-												value="${plantemplate.bmiGoal}" /></td>
+												value="${plantemplate.bmiGoal}" required/></td>
 										</tr>
 										<tr>
 											<td style="text-align: right">Sodium Goal:</td>
 											<td style="text-align: left"><input name="sodiumGoal"
 												type="text" style="width: 50px"
-												value="${plantemplate.sodiumGoal}" /></td>
+												value="${plantemplate.sodiumGoal}" required/></td>
 										</tr>
 										<tr>
 											<td style="text-align: right">Cholesterol Goal:</td>
 											<td style="text-align: left"><input
 												name="cholestrolGoal" type="text" style="width: 50px"
-												value="${plantemplate.cholestrolGoal}" /></td>
+												value="${plantemplate.cholestrolGoal}" required/></td>
 										</tr>
 									</table>
 								</center>
@@ -238,29 +239,29 @@
 												<tr>
 													<td style="text-align: center; width: 200px;"><input
 														name="excerciseName${status.count}" type="text"
-														style="width: 150px" value="${exercise.exerciseName}" /></td>
+														style="width: 150px" value="${exercise.exerciseName}" required/></td>
 													<td style="text-align: center; width: 200px;"><input
 														name="timeToSpend${status.count}" type="text"
-														style="width: 150px" value="${exercise.timeToSpend}" /></td>
+														style="width: 150px" value="${exercise.timeToSpend}" required/></td>
 													<td style="text-align: center; width: 200px;"><input
 														name="weight${status.count}" type="text"
-														style="width: 150px" value="${exercise.weight}" /></td>
+														style="width: 150px" value="${exercise.weight}" required/></td>
 													<td style="text-align: center; width: 200px;"><input
 														name="repetitions${status.count}" type="text"
-														style="width: 150px" value="${exercise.repetitions}" /></td>
+														style="width: 150px" value="${exercise.repetitions}" required/></td>
 												</tr>
 											</c:forEach>
 										</c:if>
 										<c:if test="${plantemplate.exerciseList==null}">
 											<tr>
 												<td style="text-align: center; width: 200px;"><input
-													name="excerciseName1" type="text" style="width: 150px" /></td>
+													name="excerciseName1" type="text" style="width: 150px" required/></td>
 												<td style="text-align: center; width: 200px;"><input
-													name="timeToSpend1" type="text" style="width: 150px" /></td>
+													name="timeToSpend1" type="text" style="width: 150px" required/></td>
 												<td style="text-align: center; width: 200px;"><input
-													name="weight1" type="text" style="width: 150px" /></td>
+													name="weight1" type="text" style="width: 150px" required/></td>
 												<td style="text-align: center; width: 200px;"><input
-													name="repetitions1" type="text" style="width: 150px" /></td>
+													name="repetitions1" type="text" style="width: 150px" required/></td>
 											</tr>
 										</c:if>
 									</table>
@@ -285,29 +286,29 @@
 												<tr>
 													<td style="text-align: center; width: 200px;"><input
 														name="medicineName${status.count}" type="text"
-														style="width: 150px" value="${medic.medicineName}" /></td>
+														style="width: 150px" value="${medic.medicineName}" required/></td>
 													<td style="text-align: center; width: 200px;"><input
 														name="timeToTake${status.count}" type="text"
-														style="width: 150px" value="${medic.timeToTake}" /></td>
+														style="width: 150px" value="${medic.timeToTake}" required/></td>
 													<td style="text-align: center; width: 200px;"><input
 														name="dosage${status.count}" type="text"
-														style="width: 150px" value="${medic.dosage}" /></td>
+														style="width: 150px" value="${medic.dosage}" required/></td>
 													<td style="text-align: center; width: 200px;"><input
 														name="type${status.count}" type="text"
-														style="width: 150px" value="${medic.type}" /></td>
+														style="width: 150px" value="${medic.type}" required/></td>
 												</tr>
 											</c:forEach>
 										</c:if>
 										<c:if test="${plantemplate.medicationList==null}">
 											<tr>
 												<td style="text-align: center; width: 200px;"><input
-													name="medicineName1" type="text" style="width: 150px" /></td>
+													name="medicineName1" type="text" style="width: 150px" required/></td>
 												<td style="text-align: center; width: 200px;"><input
-													name="timeToTake1" type="text" style="width: 150px" /></td>
+													name="timeToTake1" type="text" style="width: 150px" required/></td>
 												<td style="text-align: center; width: 200px;"><input
-													name="dosage1" type="text" style="width: 150px" /></td>
+													name="dosage1" type="text" style="width: 150px" required/></td>
 												<td style="text-align: center; width: 200px;"><input
-													name="type1" type="text" style="width: 150px" /></td>
+													name="type1" type="text" style="width: 150px" required/></td>
 											</tr>
 										</c:if>
 									</table>

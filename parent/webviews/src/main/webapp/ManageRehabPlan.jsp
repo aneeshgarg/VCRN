@@ -80,19 +80,19 @@
 							                </tr>
 							                <tr >
 							                    <td style="text-align:right">Lowest Acceptable Pulse: </td>
-							                    <td style="text-align:left"><input name="lap" type="text" style="width: 50px" id="labp" value="${currPat.rehabPlan.lap}"/></td>	
+							                    <td style="text-align:left"><input name="lap" type="text" style="width: 50px" id="labp" value="${currPat.rehabPlan.lap}" required/></td>	
 							                </tr>
 							                <tr >
 							                    <td style="text-align:right">Highest Acceptable Pulse:</td>
-							                    <td style="text-align:left"><input name="hap" type="text" style="width: 50px" value="${currPat.rehabPlan.hap}"/></td>
+							                    <td style="text-align:left"><input name="hap" type="text" style="width: 50px" value="${currPat.rehabPlan.hap}" required/></td>
 							                </tr>
 							                <tr>
 							                    <td style="text-align:right">Lowest Acceptable Blood Pressure:</td>
-							                    <td style="text-align:left"> <input name="labp" type="text" style="width: 50px" value="${currPat.rehabPlan.labp}" /></td>
+							                    <td style="text-align:left"> <input name="labp" type="text" style="width: 50px" value="${currPat.rehabPlan.labp}" required/></td>
 							                </tr>
 							                <tr >
 							                    <td style="text-align:right">Highest Acceptable Blood Pressure:</td>
-							                    <td style="text-align:left"> <input name="habp" type="text" style="width: 50px" value="${currPat.rehabPlan.habp}"/></td>
+							                    <td style="text-align:left"> <input name="habp" type="text" style="width: 50px" value="${currPat.rehabPlan.habp}" required/></td>
 							                </tr>
 							            </table>
 							            </center>
@@ -106,19 +106,19 @@
 							                </tr>			
 							                <tr>
 							                    <td style="text-align:right">Calorie Goal:</td>
-							                    <td style="text-align:left"><input name="calorieGoal" type="text" style="width: 50px" value="${currPat.rehabPlan.calorieGoal}"/></td>
+							                    <td style="text-align:left"><input name="calorieGoal" type="text" style="width: 50px" value="${currPat.rehabPlan.calorieGoal}" required/></td>
 							                </tr>
 							                <tr>
 							                    <td style="text-align:right">Fat Goal:</td>
-							                    <td style="text-align:left"><input name="bmiGoal" type="text" style="width: 50px" value="${currPat.rehabPlan.bmiGoal}"/></td>
+							                    <td style="text-align:left"><input name="bmiGoal" type="text" style="width: 50px" value="${currPat.rehabPlan.bmiGoal}" required/></td>
 							                </tr>
 							                <tr>
 							                    <td style="text-align:right">Sodium Goal:</td>
-							                    <td style="text-align:left"><input name="sodiumGoal" type="text" style="width: 50px" value="${currPat.rehabPlan.sodiumGoal}"/></td>
+							                    <td style="text-align:left"><input name="sodiumGoal" type="text" style="width: 50px" value="${currPat.rehabPlan.sodiumGoal}" required/></td>
 							                </tr>
 							                <tr>
 							                    <td style="text-align:right">Cholesterol Goal:</td>
-							                    <td style="text-align:left"><input name="cholestrolGoal" type="text" style="width: 50px" value="${currPat.rehabPlan.cholestrolGoal}"/></td>
+							                    <td style="text-align:left"><input name="cholestrolGoal" type="text" style="width: 50px" value="${currPat.rehabPlan.cholestrolGoal}" required/></td>
 							                </tr>
 							            </table>
 							            </center>
@@ -139,28 +139,28 @@
 											<c:forEach var="exercise" items="${currPat.rehabPlan.exerciseList}" varStatus="status" >
 							                <tr class="centercell">
 							                    <td style="text-align: center; width: 200px;">
-							                        <input name="excerciseName${status.count}" type="text" style="width: 150px" value="${exercise.exerciseName}"/></td>
+							                        <input name="excerciseName${status.count}" type="text" style="width: 150px" value="${exercise.exerciseName}" required/></td>
 							                    <td style="text-align: center; width: 200px;">
-							                        <input name="timeToSpend${status.count}" type="text" style="width: 150px" value="${exercise.timeToSpend}"/></td>
+							                        <input name="timeToSpend${status.count}" type="text" style="width: 150px" value="${exercise.timeToSpend}" required/></td>
 							                    <td style="text-align: center; width: 200px;">
-							                        <input name="weight${status.count}" type="text" style="width: 150px" value="${exercise.weight}"/></td>
+							                        <input name="weight${status.count}" type="text" style="width: 150px" value="${exercise.weight}" required/></td>
 							                    <td style="text-align: center; width: 200px;">
-							                        <input name="repetitions${status.count}" type="text" style="width: 150px" value="${exercise.repetitions}"/></td>
+							                        <input name="repetitions${status.count}" type="text" style="width: 150px" value="${exercise.repetitions}" required/></td>
 							                    <td style="text-align: center; width: 200px;">
-							                        <input name="exerciseId${status.count}" type="hidden" value="${exercise.exerciseId}"/></td>							                    
+							                        <input name="exerciseId${status.count}" type="hidden" value="${exercise.exerciseId}" required/></td>							                    
 							                </tr>
 							               	</c:forEach>            
 							                </c:if>
 							                <c:if test="${currPat.rehabPlan.exerciseList==null}">
 							                	<tr class="centercell">
 							                		<td style="text-align: center; width: 200px;">
-							                		<input name="excerciseName1" type="text" style="width: 150px" /></td>
+							                		<input name="excerciseName1" type="text" style="width: 150px" required/></td>
 							                		<td style="text-align: center; width: 200px;">
-							                		<input name="timeToSpend1" type="text" style="width: 150px" /></td>
+							                		<input name="timeToSpend1" type="text" style="width: 150px" required/></td>
 							                		<td style="text-align: center; width: 200px;">
-							                		<input name="weight1" type="text" style="width: 150px" /></td>
+							                		<input name="weight1" type="text" style="width: 150px" required/></td>
 							                		<td style="text-align: center; width: 200px;">
-							                		<input name="repetitions1" type="text" style="width: 150px" /></td></tr>
+							                		<input name="repetitions1" type="text" style="width: 150px" required/></td></tr>
 							                </c:if>
 							            </table><input type="button" value="Add New Exercise" onClick="addExercise()" />
 							            </center>							            
@@ -181,28 +181,28 @@
 							                <c:forEach var="medic" items="${currPat.rehabPlan.medicationList}" varStatus="status">
 							                <tr>
 							                    <td style="text-align: center; width: 200px;">
-							                        <input name="medicineName${status.count}" type="text" style="width: 150px" value="${medic.medicineName}"/></td>
+							                        <input name="medicineName${status.count}" type="text" style="width: 150px" value="${medic.medicineName}" required/></td>
 							                    <td style="text-align: center; width: 200px;">
-							                        <input name="timeToTake${status.count}" type="text" style="width: 150px" value="${medic.timeToTake}"/></td>
+							                        <input name="timeToTake${status.count}" type="text" style="width: 150px" value="${medic.timeToTake}" required/></td>
 							                    <td style="text-align: center; width: 200px;">
-							                        <input name="dosage${status.count}" type="text" style="width: 150px" value="${medic.dosage}"/></td>
+							                        <input name="dosage${status.count}" type="text" style="width: 150px" value="${medic.dosage}" required/></td>
 							                    <td style="text-align: center; width: 200px;">
-							                        <input name="type${status.count}" type="text" style="width: 150px" value="${medic.type}"/></td>
+							                        <input name="type${status.count}" type="text" style="width: 150px" value="${medic.type}" required/></td>
 							                    <td style="text-align: center; width: 200px;">
-							                        <input name="medicationId${status.count}" type="hidden" value="${medic.medicationId}"/></td>									                        
+							                        <input name="medicationId${status.count}" type="hidden" value="${medic.medicationId}" required/></td>									                        
 							                </tr>
 							                </c:forEach>
 							                </c:if>
 							                <c:if test="${currPat.rehabPlan.medicationList==null}">
 							               		 <tr>
+							               		 	<td style="text-align: center; width: 200px;text-transform: capitalize;">
+							               		 	<input name="medicineName1" type="text" style="width: 150px" required/></td>
 							               		 	<td style="text-align: center; width: 200px;">
-							               		 	<input name="medicineName1" type="text" style="width: 150px" /></td>
+							               		 	<input name="timeToTake1" type="text" style="width: 150px" required/></td>
 							               		 	<td style="text-align: center; width: 200px;">
-							               		 	<input name="timeToTake1" type="text" style="width: 150px" /></td>
-							               		 	<td style="text-align: center; width: 200px;">
-							               		 	<input name="dosage1" type="text" style="width: 150px" /></td>
-							               		 	<td style="text-align: center; width: 200px;">
-							               		 	<input name="type1" type="text" style="width: 150px" /></td>
+							               		 	<input name="dosage1" type="text" style="width: 150px" required/></td>
+							               		 	<td style="text-align: center; width: 200px;text-transform: capitalize;">
+							               		 	<input name="type1" type="text" style="width: 150px" required/></td>
 							               		 </tr>
 							                </c:if>
 							            </table></center>

@@ -59,19 +59,19 @@
 											<td style="text-align: right">Pulse:</td>
 											<td style="text-align: left"><input name="pulse"
 												type="text" style="width: 50px" id="pulse"
-												value="${accountBean.rehabPlan.lap}" /></td>
+												value="${accountBean.rehabPlan.lap}" required/></td>
 										</tr>
 										<tr>
 											<td style="text-align: right">Blood Pressure:</td>
 											<td style="text-align: left"><input name="bloodPressure"
 												type="text" style="width: 50px"
-												value="${accountBean.rehabPlan.labp}" /></td>
+												value="${accountBean.rehabPlan.labp}" required/></td>
 										</tr>
 										<tr>
 											<td style="text-align: right">Weight:</td>
 											<td style="text-align: left"><input name="weight"
 												type="text" style="width: 50px"
-												value="${accountBean.healthData.weight}" /></td>
+												value="${accountBean.healthData.weight}" required/></td>
 										</tr>
 										<tr>
 											<td style="text-align: right">Exercise done:</td>
@@ -152,15 +152,15 @@
 									</tr>
 									<tr>
 										<td style="text-align: center; width: 200px;"><input
-											name="foodName1" type="text" style="width: 150px" /></td>
+											name="foodName1" type="text" style="width: 150px" required/></td>
 										<td style="text-align: center; width: 200px;"><input
-											name="calories1" type="text" style="width: 150px" value="${accountBean.rehabPlan.calorieGoal}"/></td>
+											name="calories1" type="text" style="width: 150px" value="${accountBean.rehabPlan.calorieGoal}" required/></td>
 										<td style="text-align: center; width: 200px;"><input
-											name="sodium1" type="text" style="width: 150px" value="${accountBean.rehabPlan.sodiumGoal}"/></td>
+											name="sodium1" type="text" style="width: 150px" value="${accountBean.rehabPlan.sodiumGoal}" required/></td>
 										<td style="text-align: center; width: 200px;"><input
-											name="cholestrol1" type="text" style="width: 150px" value="${accountBean.rehabPlan.cholestrolGoal}"/></td>
+											name="cholestrol1" type="text" style="width: 150px" value="${accountBean.rehabPlan.cholestrolGoal}" required/></td>
 										<td style="text-align: center; width: 200px;"><input
-											name="fat1" type="text" style="width: 150px" value="${accountBean.rehabPlan.bmiGoal}"/></td>
+											name="fat1" type="text" style="width: 150px" value="${accountBean.rehabPlan.bmiGoal}" required/></td>
 									</tr>
 								</table>
 							</center>
