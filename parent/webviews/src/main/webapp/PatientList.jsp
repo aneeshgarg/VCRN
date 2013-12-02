@@ -20,7 +20,7 @@
 	<div id="logincanvas">
 		<div id="PageHeader" class="pageheader">
 			<jsp:include page="pageheader.jsp"/>	
-			<div class="logout">Hi ${accountBean.firstName} !!!<a href="Login.jsp"><input type="button" style="float:right" value="Logout"/></a></div>
+			<div class="logout">Hi ${accountBean.firstName} !!!<a href="logout"><input type="button" style="float:right" value="Logout"/></a></div>
 			<a class="currentpage" href="PatientList.jsp">Patients List</a>		
 			<div id="menu" class="menu">
 					<table style="width:100%">
@@ -38,11 +38,16 @@
 		    <table class="wideCenter">
 		    	<c:forEach var="ptlist" items="${accountBean.patientList}">							        
 					            <tr>
-					                
 					                    <td class="firstletter">${ptlist.getFirstName()} ${ptlist.lastName}</td>
-		            					<td><a href="ManageRehabPlan.jsp">Manage Rehab Plan</a></td>
-		            					<td><a href="ReportCard.jsp">View Report Card</a></td>
-					                
+					                    <c:choose>
+					                    	<c:when test="${ptlist.rehabPlan==null}">
+					                    		<td><a href="rehabplan?patientId=${ptlist.accountId}">Create Rehab Plan</a></td>
+					                    	</c:when>
+					                    	<c:otherwise>
+					                    		<td><a href="ManageRehabPlan.jsp?patientId=${ptlist.accountId}">Manage Rehab Plan</a></td>
+					                    	</c:otherwise>
+					                    </c:choose>		            					
+		            					<td><a href="ReportCard.jsp?patientId=${ptlist.accountId}">View Progress Report</a></td>					                
 					            </tr>
 				</c:forEach>		
 		    </table>

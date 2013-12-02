@@ -29,7 +29,6 @@
      List<Exercise> excerList = new ArrayList<Exercise>();
      for(int i=0;i<execRowCount;i++){
     	 Exercise exer = new Exercise();
-    	 System.out.println("excercise name "+parMap.get(excerciseKey+(i+1))[0]);
     	 exer.setExerciseName(parMap.get(excerciseKey+(i+1))[0]);
     	 exer.setTimeToSpend(parMap.get(timeKey+(i+1))[0]);
     	 exer.setWeight(Double.parseDouble(parMap.get(weightKey+(i+1))[0]));
@@ -47,5 +46,6 @@
      }     
      newPlan.setExerciseList(excerList);
      newPlan.setMedicationList(medicList);
+     request.setAttribute("action", "updatePlan");
      	rd.forward(request, response);
      %>
