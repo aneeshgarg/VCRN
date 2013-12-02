@@ -1,3 +1,4 @@
+<%@page import="com.pioneers.vcrn.data.Exercise"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ page import="com.pioneers.vcrn.data.Patient" %>
 <%@ page import="com.pioneers.vcrn.data.MedicalProfessional" %>
@@ -16,12 +17,12 @@
 	<script type="text/javascript">
 	function addMedicine(){
 		var rowCount = $('#medicine tr').length;
-		var newrow = $('<tr><td style="text-align: center; width: 200px;"><input name="medicineName'+rowCount+'" type="text" style="width: 150px" /></td><td style="text-align: center; width: 200px;"><input name="timeToTake'+rowCount+'" type="text" style="width: 150px" /></td><td style="text-align: center; width: 200px;"><input name="dosage'+rowCount+'" type="text" style="width: 150px" /></td><td style="text-align: center; width: 200px;"><input name="type'+rowCount+'" type="text" style="width: 150px" /></td></tr>');
+		var newrow = $('<tr><td style="text-align: center; width: 200px;"><input name="medicineName'+rowCount+'" type="text" style="width: 150px" /></td><td style="text-align: center; width: 200px;"><input name="timeToTake'+rowCount+'" type="text" style="width: 150px" /></td><td style="text-align: center; width: 200px;"><input name="dosage'+rowCount+'" type="text" style="width: 150px" /></td><td style="text-align: center; width: 200px;"><input name="type'+rowCount+'" type="text" style="width: 150px" /></td><td style="text-align: center; width: 200px;"><input name="medicationId'+rowCount+'" type="hidden" value="0"/></td></tr>');
 		$("#medicine").append($(newrow));
 	}
 	function addExercise(){
 		var rowCount = $('#exercise tr').length;
-		var newrow = $('<tr><td style="text-align: center; width: 200px;"><input name="excerciseName'+rowCount+'" type="text" style="width: 150px" /></td><td style="text-align: center; width: 200px;"><input name="timeToSpend'+rowCount+'" type="text" style="width: 150px" /></td><td style="text-align: center; width: 200px;"><input name="weight'+rowCount+'" type="text" style="width: 150px" /></td><td style="text-align: center; width: 200px;"><input name="repetitions'+rowCount+'" type="text" style="width: 150px" /></td></tr>');
+		var newrow = $('<tr><td style="text-align: center; width: 200px;"><input name="excerciseName'+rowCount+'" type="text" style="width: 150px" /></td><td style="text-align: center; width: 200px;"><input name="timeToSpend'+rowCount+'" type="text" style="width: 150px" /></td><td style="text-align: center; width: 200px;"><input name="weight'+rowCount+'" type="text" style="width: 150px" /></td><td style="text-align: center; width: 200px;"><input name="repetitions'+rowCount+'" type="text" style="width: 150px" /></td><td style="text-align: center; width: 200px;"><input name="exerciseId'+rowCount+'" type="hidden" value="0"/></td></tr>');
 		$("#exercise").append($(newrow));
 	}
 	
@@ -64,6 +65,7 @@
 				    				currPat=p;
 				    			}
 				    		}
+				    		Exercise exer = currPat.getRehabPlan().getExerciseList().get(0);
 				    		request.setAttribute("currPat",currPat);
 			    		%>
 							    <div class="wideCenter">
@@ -131,6 +133,7 @@
 							                    <th style="text-align: center;">Time To Spend</th>
 							                    <th style="text-align: center;">Weight</th>
 							                    <th style="text-align: center;">Repetitions</th>
+							                    <th style="text-align: center;"></th>
 							                </tr>
 							                <c:if test="${currPat.rehabPlan.exerciseList!=null}">
 							                <c:forEach var="exercise" items="${currPat.rehabPlan.exerciseList}" varStatus="status" >
@@ -143,6 +146,8 @@
 							                        <input name="weight${status.count}" type="text" style="width: 150px" value="${exercise.weight}"/></td>
 							                    <td style="text-align: center; width: 200px;">
 							                        <input name="repetitions${status.count}" type="text" style="width: 150px" value="${exercise.repetitions}"/></td>
+							                    <td style="text-align: center; width: 200px;">
+							                        <input name="exerciseId${status.count}" type="hidden" value="${exercise.exerciseId}"/></td>							                    
 							                </tr>
 							                </c:forEach>
 							                </c:if>
@@ -170,6 +175,7 @@
 							                    <th style="text-align: center;">Time To Take</th>
 							                    <th style="text-align: center;">Dosage</th>
 							                    <th style="text-align: center;">Type</th>
+							                    <th style="text-align: center;"></th>
 							                </tr>
 							                <c:if test="${currPat.rehabPlan.medicationList!=null}">
 							                <c:forEach var="medic" items="${currPat.rehabPlan.medicationList}" varStatus="status">
@@ -182,6 +188,8 @@
 							                        <input name="dosage${status.count}" type="text" style="width: 150px" value="${medic.dosage}"/></td>
 							                    <td style="text-align: center; width: 200px;">
 							                        <input name="type${status.count}" type="text" style="width: 150px" value="${medic.type}"/></td>
+							                    <td style="text-align: center; width: 200px;">
+							                        <input name="medicationId${status.count}" type="hidden" value="${medic.medicationId}"/></td>									                        
 							                </tr>
 							                </c:forEach>
 							                </c:if>

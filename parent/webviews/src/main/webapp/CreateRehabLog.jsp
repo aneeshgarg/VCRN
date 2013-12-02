@@ -174,11 +174,10 @@
 								<input type="button" value="Add Diet" onClick="addDiet()" />
 							</center>
 						</div>
-						<br /> <input type="hidden" name="doctorId"
-							value="${accountBean.accountId}"> <input type="hidden"
-							name="action" value="updatePlan"> <input type="hidden"
-							name="planId" value="${accountBean.rehabPlan.planId}"> <input
-							type="hidden" name="patientId" value="${accountBean.accountId}">
+						<br /> 
+						<input type="hidden" name="patientId" value="${accountBean.accountId}"> 
+						<input type="hidden" name="planId" value="${accountBean.rehabPlan.planId}"> 
+						<input type="hidden" name="patientId" value="${accountBean.accountId}">
 						<input type="submit" value="Save Rehab Log" />
 					</div>
 				</div>

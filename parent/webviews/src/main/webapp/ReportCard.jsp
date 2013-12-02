@@ -34,16 +34,6 @@
 			</div>
 		</div>	
 		<center>
-	 <% List<Patient> patientList = ((MedicalProfessional)session.getAttribute("accountBean")).getPatientList();
-   			long patId = Long.valueOf(request.getParameter("patientId"));
-   			Patient currPat=null;
-    		for(Patient p:patientList){
-    			if(patId==p.getAccountId()){
-    				currPat=p;
-    			}
-    		}
-    		request.setAttribute("currPat",currPat);
-   		%>
 		<div id="contentpage" class="contentpage">
 						   <div class="wideCenter">	   
 			        Report card for Patient ${currPat.firstName} ${currPat.lastName} for <%=new java.text.SimpleDateFormat("MM/dd/yyyy").format(new java.util.Date())%><br />
@@ -78,7 +68,7 @@
 			            <table >
 			                <tr>
 			                    <td style="text-align:right">Calories Burned:</td>
-			                    <td style="text-align:left"><span class="${currPat.lastReport.exercise=='Met'?'goalMet':'alert'}">${currPat.lastReport.exercise}</span></td>
+			                    <td style="text-align:left"><span class="${currPat.lastReport.exercise=='Did Exercise'?'goalMet':'alert'}">${currPat.lastReport.exercise}</span></td>
 			                </tr>
 			            </table></center>
 			        </div>
@@ -88,7 +78,7 @@
 			            <table >
 			                <tr>
 			                    <td style="text-align:right">Dosage:</td>
-			                    <td style="text-align:left"><span class="${currPat.lastReport.medication=='Met'?'goalMet':'alert'}">${currPat.lastReport.medication}</span></td>
+			                    <td style="text-align:left"><span class="${currPat.lastReport.medication=='Took Medication'?'goalMet':'alert'}">${currPat.lastReport.medication}</span></td>
 			                </tr>
 			            </table></center>
 			        </div>

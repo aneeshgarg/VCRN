@@ -58,15 +58,14 @@ public class RehabLogServlet extends HttpServlet {
 
 			try {
 				patient = (Patient) new RestHelper()
-						.callRestService(
-								"/facade/getmpinfo/"
-										+ patient.getAccountId(), "GET",
+						.callRestService("/facade/getpatientinfo/"+patient.getAccountId(), "GET",
 								null, Patient.class);
 			} catch (Exception e) {
 				System.out.println(e.getMessage());
 				e.printStackTrace();
 			}
 			session.setAttribute("accountBean", patient);
+			request.setAttribute("message",	"Rehab Log Created!");
 			request.setAttribute("message",	"Rehab Log Created!");
 			request.getRequestDispatcher("ViewRehabLog.jsp").forward(
 					request, response);

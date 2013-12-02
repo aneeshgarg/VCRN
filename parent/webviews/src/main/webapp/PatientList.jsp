@@ -26,7 +26,7 @@
 					<table style="width:100%">
 						<tr>
 							<td ><a class="aheader" href="home.jsp">Home</a></td>
-							<td ><a class="aheader" href="CreateRehabPlan.jsp">Create Rehab Plan</a></td>
+							<td ><a class="aheader" href="rehabplan">Create Rehab Plan</a></td>
 					</tr></table>
 			</div>
 		</div>	
@@ -47,7 +47,7 @@
 					                    		<td><a href="ManageRehabPlan.jsp?patientId=${ptlist.accountId}">Manage Rehab Plan</a></td>
 					                    	</c:otherwise>
 					                    </c:choose>		            					
-		            					<td><a href="ReportCard.jsp?patientId=${ptlist.accountId}">View Progress Report</a></td>					                
+		            					<td><a href="report?patientId=${ptlist.accountId}">View Progress Report</a></td>					                
 					            </tr>
 				</c:forEach>		
 		    </table>

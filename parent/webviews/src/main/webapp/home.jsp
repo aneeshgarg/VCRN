@@ -52,7 +52,7 @@
 											</td>
 									</tr>
 								</c:forEach>
-								<tr><td><a href="/report?patientid=${alert.patientId}">View
+								<tr><td><a href="report">View
 												Progress Report</a></td></tr>
 							</table>
 						</div>
@@ -90,7 +90,7 @@
 								<c:forEach var="alert" items="${accountBean.notificationList}">
 									<tr>
 										<td class="leftcell"><strong class="alert">${alert.message}</strong>
-											<a href="ReportCard.jsp?patientId=${alert.patientId}">View
+											<a href="report?patientId=${alert.patientId}">View
 												Patient Progress Report</a></td>
 									</tr>
 								</c:forEach>
