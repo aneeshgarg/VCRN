@@ -19,6 +19,7 @@ public class CoreService {
     public void saveLog(RehabLogRequest logRequest) throws Exception {
         RehabPlan plan = logRequest.getPlan();
         RehabLog log = logRequest.getLog();
+        log.setCreateDate(new Date(System.currentTimeMillis()));
 
         new RehabLogDatastore().saveLog(log);
 
@@ -90,10 +91,12 @@ public class CoreService {
     }
 
     public void saveRehabPlan(RehabPlan plan) throws Exception {
+        plan.setCreateDate(new Date(System.currentTimeMillis()));
         new RehabPlanDatastore().insertPlan(plan);
     }
 
     public void updateRehabPlan(RehabPlan plan) throws Exception {
+        plan.setUpdateDate(new Date(System.currentTimeMillis()));
         new RehabPlanDatastore().updatePlan(plan);
     }
 

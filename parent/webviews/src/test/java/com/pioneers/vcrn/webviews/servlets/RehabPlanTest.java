@@ -1,7 +1,5 @@
 package com.pioneers.vcrn.webviews.servlets;
 
-import java.util.Date;
-
 import com.pioneers.vcrn.data.Patient;
 import com.pioneers.vcrn.data.RehabPlan;
 import com.pioneers.vcrn.data.RehabTemplate;
@@ -20,15 +18,15 @@ public class RehabPlanTest {
 
         RehabPlanTest test = new RehabPlanTest();
         //test.testGetRehabPlanTemplates();
-        //test.testSaveRehabPlan();
+        test.testSaveRehabPlan();
         test.testUpdateRehabPlan();
 
     }
 
     private void testUpdateRehabPlan() throws Exception {
-        Patient patient = (Patient) new RestHelper().callRestService("/facade/getpatientinfo/1", "GET", null, Patient.class);
+        Patient patient = (Patient) new RestHelper().callRestService("/facade/getpatientinfo/2", "GET", null, Patient.class);
         RehabPlan plan = patient.getRehabPlan();
-        plan.setUpdateDate(new Date(System.currentTimeMillis()));
+        //plan.setUpdateDate(new Date(System.currentTimeMillis()));
         plan.setBmiGoal(1635);
         plan.getExerciseList().get(0).setExerciseName("UpdatedExercise");
         plan.getMedicationList().get(0).setTimeToTake("Thrice in a day");
@@ -44,7 +42,7 @@ public class RehabPlanTest {
         plan.setBmiGoal(template.getBmiGoal());
         plan.setCalorieGoal(template.getCalorieGoal());
         plan.setCholestrolGoal(template.getCholestrolGoal());
-        plan.setCreateDate(new Date(System.currentTimeMillis()));
+        //plan.setCreateDate(new Date(System.currentTimeMillis()));
         plan.setDoctorId(4);
         plan.setExerciseList(template.getExerciseList());
         plan.setHabp(template.getHabp());
@@ -52,10 +50,10 @@ public class RehabPlanTest {
         plan.setLabp(template.getLabp());
         plan.setLap(template.getLap());
         plan.setMedicationList(template.getMedicationList());
-        plan.setPatientId(1);
+        plan.setPatientId(2);
         plan.setSodiumGoal(template.getSodiumGoal());
         plan.setTemplateId(template.getTemplateId());
-        plan.setUpdateDate(null);
+        //plan.setUpdateDate(null);
         new RestHelper().callRestService("/facade/saverehabplan", "POST", plan, RehabPlan.class);
     }
 
