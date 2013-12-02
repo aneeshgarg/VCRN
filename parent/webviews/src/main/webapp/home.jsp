@@ -33,6 +33,8 @@
 								<td><a class="aheader" href="ViewRehabPlan.jsp">View
 										Rehab Plan</a></td>
 								<td><a class="aheader" href="ViewRehabLog.jsp">View Rehab Log</a></td>
+								<td><a class="aheader" href="CreateRehabLog.jsp">Create Rehab Log</a></td>
+								<td><a class="aheader" href="report">View Progress Report</a></td>
 							</tr>
 						</table>
 					</div>
@@ -42,7 +44,10 @@
 					<%
 					java.text.DateFormat df = new java.text.SimpleDateFormat("MM/dd/yyyy");
 					Patient currPatient =(Patient)session.getAttribute("accountBean");
-					String lastLogDate = df.format(currPatient.getLastLog().getCreateDate());
+					String lastLogDate ="";
+					if(currPatient.getLastLog()!=null){
+						lastLogDate = df.format(currPatient.getLastLog().getCreateDate());	
+					}
 					%>
 						<div class="wideCenter">
 							You last updated your daily log on <%=lastLogDate%><br /> <a
@@ -95,7 +100,7 @@
 								<c:forEach var="alert" items="${accountBean.notificationList}">
 									<tr>
 										<td class="leftcell"><strong class="alert">${alert.message}</strong>
-											<a href="report?patientId=${alert.patientId}">View
+											<a href="report?currPatientId=${alert.patientId}">View
 												Patient Progress Report</a></td>
 									</tr>
 								</c:forEach>

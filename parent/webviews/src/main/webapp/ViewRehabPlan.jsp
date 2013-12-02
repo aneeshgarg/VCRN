@@ -32,6 +32,8 @@
 						<td><a class="aheader" href="home.jsp">Home</a></td>
 						<td><a class="aheader" href="ViewRehabLog.jsp">View Rehab
 								Log</a></td>
+								<td><a class="aheader" href="CreateRehabLog.jsp">Create Rehab Log</a></td>
+								<td><a class="aheader" href="report">View Progress Report</a></td>
 					</tr>
 				</table>
 			</div>

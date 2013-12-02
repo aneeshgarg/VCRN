@@ -49,7 +49,7 @@
 		</div>
 					<center>
 					<div id="contentpage" class="contentpage">
-						<c:if test="${message != null}">
+						<c:if test="${message != null && message != 'No Patients without Rehab Plans!!!'}">
 						 <center>
 						 <div class="wideCenter">
 					        <h3><strong >${message}</strong></h3>
@@ -123,7 +123,7 @@
 							            </table>
 							            </center>
 							        </div>
-							        <div class="clear-fix"></div>
+							       
 							        <div class="wideCenter">
 							            <h3>Exercise</h3>
 							            <center>
@@ -135,9 +135,9 @@
 							                    <th style="text-align: center;">Repetitions</th>
 							                    <th style="text-align: center;"></th>
 							                </tr>
-							                <c:if test="${currPat.rehabPlan.exerciseList!=null}">
-							                <c:forEach var="exercise" items="${currPat.rehabPlan.exerciseList}" varStatus="status" >
-							                <tr>
+							                <c:if test="${currPat.rehabPlan.exerciseList!=null}">							    
+											<c:forEach var="exercise" items="${currPat.rehabPlan.exerciseList}" varStatus="status" >
+							                <tr class="centercell">
 							                    <td style="text-align: center; width: 200px;">
 							                        <input name="excerciseName${status.count}" type="text" style="width: 150px" value="${exercise.exerciseName}"/></td>
 							                    <td style="text-align: center; width: 200px;">
@@ -149,10 +149,10 @@
 							                    <td style="text-align: center; width: 200px;">
 							                        <input name="exerciseId${status.count}" type="hidden" value="${exercise.exerciseId}"/></td>							                    
 							                </tr>
-							                </c:forEach>
+							               	</c:forEach>            
 							                </c:if>
 							                <c:if test="${currPat.rehabPlan.exerciseList==null}">
-							                	<tr>
+							                	<tr class="centercell">
 							                		<td style="text-align: center; width: 200px;">
 							                		<input name="excerciseName1" type="text" style="width: 150px" /></td>
 							                		<td style="text-align: center; width: 200px;">
@@ -162,10 +162,10 @@
 							                		<td style="text-align: center; width: 200px;">
 							                		<input name="repetitions1" type="text" style="width: 150px" /></td></tr>
 							                </c:if>
-							            </table></center>
-							            <input type="button" value="Add New Exercise" onClick="addExercise()" />
+							            </table><input type="button" value="Add New Exercise" onClick="addExercise()" />
+							            </center>							            
 							        </div>
-							
+							 
 							        <div class="wideCenter">
 							            <h3>Medicine</h3>
 							            <center>

@@ -33,6 +33,7 @@
 								Rehab Plan</a></td>
 						<td><a class="aheader" href="ViewRehabLog.jsp">View Rehab
 								Log</a></td>
+						<td><a class="aheader" href="report">View Progress Report</a></td>
 					</tr>
 				</table>
 			</div>
@@ -153,13 +154,13 @@
 										<td style="text-align: center; width: 200px;"><input
 											name="foodName1" type="text" style="width: 150px" /></td>
 										<td style="text-align: center; width: 200px;"><input
-											name="calories1" type="text" style="width: 150px" /></td>
+											name="calories1" type="text" style="width: 150px" value="${accountBean.rehabPlan.calorieGoal}"/></td>
 										<td style="text-align: center; width: 200px;"><input
-											name="sodium1" type="text" style="width: 150px" /></td>
+											name="sodium1" type="text" style="width: 150px" value="${accountBean.rehabPlan.sodiumGoal}"/></td>
 										<td style="text-align: center; width: 200px;"><input
-											name="cholestrol1" type="text" style="width: 150px" /></td>
+											name="cholestrol1" type="text" style="width: 150px" value="${accountBean.rehabPlan.cholestrolGoal}"/></td>
 										<td style="text-align: center; width: 200px;"><input
-											name="fat1" type="text" style="width: 150px" /></td>
+											name="fat1" type="text" style="width: 150px" value="${accountBean.rehabPlan.bmiGoal}"/></td>
 									</tr>
 								</table>
 							</center>

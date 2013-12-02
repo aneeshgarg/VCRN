@@ -29,7 +29,6 @@ public class ReportServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String patientId = request.getParameter("currPatientId");
-		System.out.println("the report for patient "+patientId);
 		HttpSession session = request.getSession();
 		if(patientId==null){
 			Patient patient = (Patient) session.getAttribute("accountBean");
