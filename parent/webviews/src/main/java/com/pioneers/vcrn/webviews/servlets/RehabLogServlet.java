@@ -66,7 +66,7 @@ public class RehabLogServlet extends HttpServlet {
 			}
 			session.setAttribute("accountBean", patient);
 			request.setAttribute("message",	"Rehab Log Created!");
-			request.setAttribute("message",	"Rehab Log Created!");
+			System.out.println(request.getParameterMap().keySet());
 			request.getRequestDispatcher("ViewRehabLog.jsp").forward(
 					request, response);
 			return;

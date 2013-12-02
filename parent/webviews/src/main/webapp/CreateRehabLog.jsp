@@ -12,15 +12,6 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <link rel="stylesheet" href="css/vcrn.css" type="text/css" />
-<script
-	src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-<script type="text/javascript">
-	function addDiet() {
-		var rowCount = $('#dietTable tr').length;
-		var newrow = $('<tr><td style="text-align: center; width: 200px;"><input name="foodName'+rowCount+'" type="text" style="width: 150px" /></td><td style="text-align: center; width: 200px;"><input name="calories'+rowCount+'" type="text" style="width: 150px" /></td><td style="text-align: center; width: 200px;"><input name="sodium'+rowCount+'" type="text" style="width: 150px" /></td><td style="text-align: center; width: 200px;"><input name="cholestrol'+rowCount+'" type="text" style="width: 150px" /></td><td style="text-align: center; width: 200px;"><input name="fat'+rowCount+'" type="text" style="width: 150px" /></td></tr>');
-		$("#dietTable").append($(newrow));
-	}
-</script>
 <title>Virtual Cardiac Rehabilitation Nurse - Login</title>
 </head>
 
@@ -171,7 +162,6 @@
 											name="fat1" type="text" style="width: 150px" /></td>
 									</tr>
 								</table>
-								<input type="button" value="Add Diet" onClick="addDiet()" />
 							</center>
 						</div>
 						<br /> 

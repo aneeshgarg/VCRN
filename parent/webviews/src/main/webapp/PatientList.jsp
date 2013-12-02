@@ -47,7 +47,8 @@
 					                    		<td><a href="ManageRehabPlan.jsp?patientId=${ptlist.accountId}">Manage Rehab Plan</a></td>
 					                    	</c:otherwise>
 					                    </c:choose>		            					
-		            					<td><a href="report?patientId=${ptlist.accountId}">View Progress Report</a></td>					                
+		            					<td><a href="report?currPatientId=${ptlist.accountId}">View Progress Report</a></td>
+		            					<td><a href="ViewRehabLog.jsp?currPatientId=${ptlist.accountId}">View Rehab Log</a></td>					                
 					            </tr>
 				</c:forEach>		
 		    </table>

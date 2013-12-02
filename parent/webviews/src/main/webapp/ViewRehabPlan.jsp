@@ -48,6 +48,8 @@
 					</center>
 				</c:if>
 				<div class="wideCenter">
+				<c:choose>
+				<c:when test="${accountBean.rehabPlan.exerciseList!=null}">
 					<div style="float: left; text-align: right; width: 50%">
 						<center>
 							<table>
@@ -153,6 +155,11 @@
 							</table>
 						</center>
 					</div>
+					</c:when>
+					<c:otherwise>
+					<h3>Rehab Plan is not created yet</h3>
+					</c:otherwise>
+					</c:choose>
 				</div>
 			</div>
 		</center>

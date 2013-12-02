@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@ page import="com.pioneers.vcrn.data.Patient"%>
+<%@ page import="com.pioneers.vcrn.data.MedicalProfessional"%>
+<%@ page import="java.util.List"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page isELIgnored="false"%>
 
@@ -36,21 +39,41 @@
 			</div>
 		</div>
 		<center>
-			<c:if test="${message != null}">
-				<center>
-					<div class="wideCenter">
-						<h3>
-							<strong>${message}</strong>
-						</h3>
-					</div>
-				</center>
-			</c:if>
 			<div id="contentpage" class="contentpage">
 				<div class="wideCenter">
+					<c:if test="${message != null}">
+						<center>
+							<div class="wideCenter">
+								<h3>
+									<strong>${message}</strong>
+								</h3>
+							</div>
+						</center>
+					</c:if>
+						<%
+						String patientId = request.getParameter("currPatientId");
+						System.out.println("the report for patient "+patientId);
+						if(patientId==null){
+							Patient patient = (Patient) session.getAttribute("accountBean");
+							request.setAttribute("currPat",patient);
+						}else{
+							MedicalProfessional medProf = (MedicalProfessional)session.getAttribute("accountBean");
+							List<Patient> patientList = medProf.getPatientList();
+				   			long patId = Long.valueOf(patientId);
+				   			Patient currPat=null;
+				    		for(Patient p:patientList){
+				    			if(patId==p.getAccountId()){
+				    				currPat=p;
+				    			}
+				    		}
+				    		request.setAttribute("currPat",currPat);			
+						}						
+						%>	
 					<div class="wideCenter">
-						<h3>Rehab Log For ${accountBean.firstName}
-							${accountBean.lastName}</h3>
+						<h3>Rehab Log For ${currPat.firstName}
+							${currPat.lastName}</h3>
 						<div>
+					
 							<center>
 								<table>
 									<tr>
@@ -59,23 +82,23 @@
 									</tr>
 									<tr>
 										<td style="text-align: right">Pulse:</td>
-										<td style="text-align: left">${accountBean.lastLog.pulse}</td>
+										<td style="text-align: left">${currPat.lastLog.pulse}</td>
 									</tr>
 									<tr>
 										<td style="text-align: right">Blood Pressure:</td>
-										<td style="text-align: left">${accountBean.lastLog.bloodPressure}</td>
+										<td style="text-align: left">${currPat.lastLog.bloodPressure}</td>
 									</tr>
 									<tr>
 										<td style="text-align: right">Weight:</td>
-										<td style="text-align: left">${accountBean.lastLog.weight}</td>
+										<td style="text-align: left">${currPat.lastLog.weight}</td>
 									</tr>
 									<tr>
 										<td style="text-align: right">Exercise done:</td>
-										<td style="text-align: left">${accountBean.lastLog.exerciseDone==true?'YES':'NO'}</td>
+										<td style="text-align: left">${currPat.lastLog.exerciseDone==true?'YES':'NO'}</td>
 									</tr>
 									<tr>
 										<td style="text-align: right">Medicine Taken:</td>
-										<td style="text-align: left">${accountBean.lastLog.medicineTaken==true?'YES':'NO'}</td>
+										<td style="text-align: left">${currPat.lastLog.medicineTaken==true?'YES':'NO'}</td>
 									</tr>
 								</table>
 							</center>
@@ -93,7 +116,7 @@
 									<th style="text-align: center;">Cholestrol</th>
 									<th style="text-align: center;">Fat</th>
 								</tr>
-								<c:forEach var="diet" items="${accountBean.lastLog.dietList}">
+								<c:forEach var="diet" items="${currPat.lastLog.dietList}">
 									<tr>
 										<td style="text-align: center; width: 200px;">${diet.foodName}</td>
 										<td style="text-align: center; width: 200px;">${diet.calories}</td>

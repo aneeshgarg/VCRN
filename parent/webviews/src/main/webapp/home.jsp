@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
-<%@ page import="javax.servlet.http.Cookie"%>
+<%@ page import="com.pioneers.vcrn.data.Patient"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page isELIgnored="false"%>
@@ -39,8 +39,13 @@
 				</div>
 				<center>
 					<div id="contentpage" class="contentpage">
+					<%
+					java.text.DateFormat df = new java.text.SimpleDateFormat("MM/dd/yyyy");
+					Patient currPatient =(Patient)session.getAttribute("accountBean");
+					String lastLogDate = df.format(currPatient.getLastLog().getCreateDate());
+					%>
 						<div class="wideCenter">
-							You last updated your daily log on 10/15/2013<br /> <a
+							You last updated your daily log on <%=lastLogDate%><br /> <a
 								href="CreateRehabLog.jsp">Create Rehab Log</a> <br /> <br /> <br />
 						</div>
 						<div class="wideCenter">

@@ -36,10 +36,10 @@
     	 exer.setTimeToSpend(parMap.get(timeKey+(i+1))[0]);
     	 exer.setWeight(Double.parseDouble(parMap.get(weightKey+(i+1))[0]));
     	 exer.setRepetitions(parMap.get(repKey+(i+1))[0]);
-    	 String tempId = parMap.get(exerciseIdKey+(i+1))[0];
+    	 String[] tempId = parMap.get(exerciseIdKey+(i+1));
     	 System.out.println("Excer id is "+tempId);
     	 if(tempId!=null){
-    		 exer.setExerciseId(Long.parseLong(tempId));	 
+    		 exer.setExerciseId(Long.parseLong(tempId[0]));	 
     	 }  	 
     	 excerList.add(exer);
      }
@@ -50,10 +50,10 @@
     	 medic.setMedicineName(parMap.get(medicineKey+(i+1))[0]);
     	 medic.setDosage(parMap.get(dosageKey+(i+1))[0]);
     	 medic.setType(parMap.get(typeKey+(i+1))[0]);
-    	 String tempId = parMap.get(medicationIdKey+(i+1))[0];
+    	 String[] tempId = parMap.get(medicationIdKey+(i+1));
     	 System.out.println("Excer id is "+tempId);
     	 if(tempId!=null){
-    		 medic.setMedicationId(Long.parseLong(tempId));	 
+    		 medic.setMedicationId(Long.parseLong(tempId[0]));	 
     	 }     	 
     	 medicList.add(medic);
      }     
