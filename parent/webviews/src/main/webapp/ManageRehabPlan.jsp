@@ -131,7 +131,7 @@
 							                <tr>
 							                    <th style="text-align: center;">Exercise Name</th>
 							                    <th style="text-align: center;">Time To Spend</th>
-							                    <th style="text-align: center;">Weight</th>
+							                    <th style="text-align: center;">Weight (lbs)</th>
 							                    <th style="text-align: center;">Repetitions</th>
 							                    <th style="text-align: center;"></th>
 							                </tr>
